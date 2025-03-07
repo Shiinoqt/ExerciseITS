@@ -1,4 +1,4 @@
-def substract(a:int,b:int):
+def substract(a:int,b:int) -> int:
     
     result : int = a-b
     
