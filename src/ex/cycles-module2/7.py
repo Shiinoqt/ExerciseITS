@@ -11,9 +11,9 @@ while True:
     elif option.lower() == "si":
         voto = int(input("Inserisci voto: "))
         if voto > 0:
-            somma = somma + voto
+            somma += voto
             media = somma / i
-            i = i+1 
+            i += 1 
             #print(f"La media dei voti è: {media}")
         else:
             print("Errore")
