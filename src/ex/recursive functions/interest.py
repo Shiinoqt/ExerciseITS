@@ -4,8 +4,6 @@ def compoundInterest(m: int, t:int):
         return m
     
     else:
-        return compoundInterest(m * 1.005, t-1)
-        
+        return round(compoundInterest(m * 1.005, t-1), 2)
     
-
-print(compoundInterest(2000, 10))
+print(compoundInterest(1000, 3))
