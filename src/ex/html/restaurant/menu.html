@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jollibee Menu</title>
+        <link rel="stylesheet" href="">
+        <style>
+            ::-webkit-scrollbar {
+                display: none;
+            }
+
+            body {
+                background-color: #f0f0f0;
+                font-family: Arial, sans-serif;
+            }
+            
+            #header {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            #header img {
+                margin: auto;
+            }
+
+            .navbar {
+                text-align: center;
+                padding-top: 35px;
+            }
+
+            .navbar a {
+                padding: 10px;
+                margin: 0 15px;
+                text-decoration: none;
+                color: #000000;
+                font-weight: bold;
+                background-color: rgb(255, 75, 75);
+                border-radius: 50px;
+                box-shadow: #0000002c 0px 0px 5px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .navbar a:hover {
+                background-color: #ff0000;
+                color: white;
+            }
+
+            #container {
+                display: flex;
+                padding: 30px;
+            }
+
+            table {
+                width: 80%;
+                text-align: left;
+                margin: 20px auto;
+            }
+            th, td {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            table img {
+                width: 200px;
+                border-radius: 10px;
+            }
+
+        </style>    
+    </head>
+    <body>
+        <div id="header">
+            <img src="https://images.squarespace-cdn.com/content/v1/5f33b417d073c907b3c2e379/1598283751674-KD3NOCA77Y3WN7VXKAT9/jollibee_logo_red.png?format=1500w" alt="Jollibee Logo" style="width: 200px; height: auto;">
+            <nav class="navbar">
+                <a href="index.html">Chi siamo</a>
+                <a href="menu.html">Menu</a>
+                <a href="">I nostri negozi</a>
+                <a href="">Contatti</a>
+                <a href="">FAQ</a>
+                <a href="">Servizi</a>
+            </div>
+        </div>
+        <div id="container">
+            <h1>Menu</h1>
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>Prezzo</th>
+                    <th>Descrizione</th>
+                </tr>
+                <tr>
+                    <td><img src="https://images.squarespace-cdn.com/content/v1/5fc0d0aa322fd514fe92a908/d0d4afa3-e2c5-4e7c-aa39-3e7e8702aec8/Chickenjoy+Meal+Deal+Per+1+12%2C90%E2%82%AC.jpg?format=300w"></td>
+                    <td>€5.00</td>
+                    <td>Fried chicken with a crispy coating.</td>
+                </tr>
+                <tr>
+                    <td><img src=""></td>
+                    <td>€6.00</td>
+                    <td>Sweet-style spaghetti with hotdogs and cheese.</td>
+            </table>
+        </div>
+    </body>
+</html>

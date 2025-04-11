@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jollibee</title>
+        <link rel="stylesheet" href="">
+        <style>
+            ::-webkit-scrollbar {
+                display: none;
+            }
+
+            body {
+                background-color: #f0f0f0;
+                font-family: Arial, sans-serif;
+            }
+            
+            #header {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            #header img {
+                margin: auto;
+            }
+
+            .navbar {
+                text-align: center;
+                padding-top: 35px;
+            }
+
+            .navbar a {
+                padding: 10px;
+                margin: 0 15px;
+                text-decoration: none;
+                color: #000000;
+                font-weight: bold;
+                background-color: rgb(255, 75, 75);
+                border-radius: 50px;
+                box-shadow: #0000002c 0px 0px 5px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .navbar a:hover {
+                background-color: #ff0000;
+                color: white;
+            }
+
+            #container {
+                display: flex;
+                padding: 30px;
+            }
+            .image-restaurant {
+                flex: 3;
+                width: 100%;
+            }
+            .image-restaurant img {
+                border-radius: 10px;
+            }
+            .info-restaurant {
+                flex: 1;
+                margin: 20px;
+                padding: 30px;
+                background-color: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+        </style>    
+    </head>
+    <body>
+        <div id="header">
+            <img src="https://images.squarespace-cdn.com/content/v1/5f33b417d073c907b3c2e379/1598283751674-KD3NOCA77Y3WN7VXKAT9/jollibee_logo_red.png?format=1500w" alt="Jollibee Logo" style="width: 200px; height: auto;">
+            <nav class="navbar">
+                <a href="index.html">Chi siamo</a>
+                <a href="menu.html">Menu</a>
+                <a href="">I nostri negozi</a>
+                <a href="">Contatti</a>
+                <a href="">FAQ</a>
+                <a href="">Servizi</a>
+            </div>
+        </div>
+        <div id="container">
+            <div class="image-restaurant">
+                <img src="https://aslgate.com/wp-content/uploads/2021/03/20915_20915_Jollibee-KFC-Lotteria_fastfood-2020_Ava_2.jpg" alt="Jollibee Restaurant" style="width: 100%; height: auto;">
+            </div>
+            <div class="info-restaurant">
+                <h1>Welcome to Jollibee</h1>
+                <p>Experience the joy of delicious food!</p>
+                <p>Jollibee is a Filipino multinational chain of fast food restaurants owned by Jollibee Foods Corporation. It is known for its Chickenjoy, a crispy fried chicken dish, and its unique menu that includes spaghetti, burgers, and more.</p>
+                <p>Founded in 1978, Jollibee has grown to become one of the largest fast food chains in the Philippines and has expanded internationally with locations in various countries.</p>
+            </div>
+        </div>
+    </body>
+</html>
