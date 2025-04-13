@@ -51,16 +51,26 @@
             }
 
             table {
+                background-color: #ffffff;
+                border: 3px solid rgb(0, 0, 0);
+                border-radius: 20px;
                 width: 80%;
                 text-align: left;
                 margin: 20px auto;
             }
+            th  {
+                border-radius: 15px;
+                background-color: #dfdfdf;
+            }
             th, td {
-                margin: 20px;
                 padding: 20px;
             }
-
+            .description {
+                border-radius: 20px;
+                background-color: rgb(255, 209, 209);
+            }
             table img {
+                margin: 0 auto;
                 width: 200px;
                 border-radius: 10px;
             }
@@ -84,18 +94,23 @@
             <table>
                 <tr>
                     <th>Nome</th>
-                    <th>Prezzo</th>
                     <th>Descrizione</th>
+                    <th>Prezzo</th>
                 </tr>
                 <tr>
                     <td><img src="https://images.squarespace-cdn.com/content/v1/5fc0d0aa322fd514fe92a908/d0d4afa3-e2c5-4e7c-aa39-3e7e8702aec8/Chickenjoy+Meal+Deal+Per+1+12%2C90%E2%82%AC.jpg?format=300w"></td>
+                    <td class="description">Fried chicken with a crispy coating</td>
                     <td>€5.00</td>
-                    <td>Fried chicken with a crispy coating.</td>
                 </tr>
                 <tr>
-                    <td><img src=""></td>
+                    <td><img src="https://images.squarespace-cdn.com/content/v1/5fc0d0aa322fd514fe92a908/57a0ce4b-f4ec-4ee4-bd30-fa81b208b64f/Jolly+Spaghetti.jpeg?format=500w"></td>
+                    <td class="description">Sweet-style spaghetti with hotdogs and cheese</td>
                     <td>€6.00</td>
-                    <td>Sweet-style spaghetti with hotdogs and cheese.</td>
+                <tr>
+                    <td><img src="https://images.squarespace-cdn.com/content/v1/5fc0d0aa322fd514fe92a908/14a29819-1df0-4557-8f2a-efd00cdc84f6/Double+Yumburger+with+cheese+-+Menu%CC%80.jpg?format=500w"></td>
+                    <td class="description">Double Yumburger with cheese</td>
+                    <td>€7.00</td>
+                </tr>
             </table>
         </div>
     </body>
