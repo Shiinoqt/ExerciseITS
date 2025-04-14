@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="form">
+            <label for="name">
+                Nome:
+                <input type="text" id="name" maxlength="30">
+            </label>
+            <label for="surname">
+                Cognome:
+                <input type="text" id="surname" maxlength="40">
+            </label>
+            <label for="matricola">
+                Matricola:
+                <input type="text" id="matricola" maxlength="12">
+            </label>
+            <label for="region">Regione:
+                <select id="region" name="regione">
+                    <option value="lazio">Lazio</option>
+                    <option value="lombardia">Lombardia</option>
+                    <option value="campania">Campania</option>
+                    <option value="piemonte">Piemonte</option>
+                    <option value="liguria">Liguria</option>
+                    <option value="toscana">Toscana</option>
+                    <option value="emiliaromagna">Emilia Romagna</option>
+                    <option value="veneto">Veneto</option>
+                    <option value="calabria">Calabria</option>
+                    <option value="sicilia">Sicilia</option>
+                    <option value="puglia">Puglia</option>
+                    <option value="abruzzo">Abruzzo</option>
+                    <option value="marche">Marche</option>
+                    <option value="umbria">Umbria</option>
+                    <option value="molise">Molise</option>
+                    <option value="basilicata">Basilicata</option>
+                    <option value="friuliveneziagiulia">Friuli Venezia Giulia</option>
+                    <option value="trentinoaltoadige">Trentino Alto Adige</option>
+                    <option value="valledaosta">Valle d'Aosta</option>
+                    <option value="sardegna">Sardegna</option>
+                </select>
+            </label>
+            <label for="email">
+                Email:
+                <input type="text" id="email" maxlength="30">
+            </label>
+            <label for="telefono">
+                Telefono:
+                <input type="text" id="telefono" maxlength="15">
+            </label>
+            <label for="richieste">
+                Richieste particolari:
+                <textarea name="richieste" rows="12" cols="60"></textarea>
+            </label>
+            <button id="submit">Submit</button>
+            <button id="reset">Reset</button>
+        </div>
+        <script>
+            // Get the input element
+            var inputElement = document.getElementById("name");
+
+            // Add an event listener for the "input" event
+            inputElement.addEventListener("input", function() {
+                // Get the current value of the input
+                var currentValue = inputElement.value;
+
+                // Check if the value is empty
+                if (currentValue === "") {
+                    // If empty, set the background color to red
+                    inputElement.style.backgroundColor = "red";
+                } else {
+                    // If not empty, set the background color to white
+                    inputElement.style.backgroundColor = "white";
+                }
+            });
+            // Get the reset button
+            var resetButton = document.getElementById("reset");
+            // Add an event listener for the "click" event
+            resetButton.addEventListener("click", function() {
+                // Reset the input value
+                inputElement.value = "";
+                // Reset the background color to white
+                inputElement.style.backgroundColor = "white";
+            });
+            
+
+        </script>
+    </body>
+</html>
