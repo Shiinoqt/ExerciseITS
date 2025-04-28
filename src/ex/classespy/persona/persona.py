@@ -1,14 +1,14 @@
 class Persona:
 
     # Constructor of the class Persona
-    def __init__ (self, nome:str, cognome:str, eta:int): 
-        self.nome = nome
+    def __init__ (self, name:str, cognome:str, eta:int): 
+        self.name = name
         self.cognome = cognome
         self.eta = eta
 
     # String representation of the class
     def __str__(self) -> str:
-        return f"Nome: {self.nome}, Cognome: {self.cognome}, Eta: {self.eta}"
+        return f"Nome: {self.name}\nCognome: {self.cognome}\nEta: {self.eta}"
         
     #  Method to set the name of the instance
     def setName(self, name:str) -> None:
@@ -33,6 +33,9 @@ class Persona:
     # Method to get the age of the instance
     def getAge(self) -> int:
         return self.age 
+
+    def speak(self) -> None:
+        print(f"Hello, my name is {self.getName()}!")
 
 # Creates a new instance of the class Persona
 # fm = Persona("Francesco", "Mazzola", 25)

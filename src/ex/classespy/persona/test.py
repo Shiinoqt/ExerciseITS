@@ -9,7 +9,6 @@ studente: Studente = Studente("Mario", "Rossi", 20, "121")
 
 print(studente)
 
-
 if isinstance(studente, Studente):
     print("Studente è un'istanza di Studente")
 
@@ -27,3 +26,7 @@ if isinstance(fm, Persona):
 
 if issubclass(Studente, Persona):
     print("Studente è una sottoclasse di Persona")
+
+
+fm.speak()
+studente.speak()
