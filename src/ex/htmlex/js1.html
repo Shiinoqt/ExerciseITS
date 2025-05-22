@@ -9,12 +9,13 @@
     <div id="risultato"> </div>
 
     <script>
-        let x = 100;
-        console.log(x);
-        let y = 30;
-        
-        document.getElementById("risultato").innerHTML = `Il risultato è ${x + y}`;
+        let x = prompt("Inserisci un numero");
+        x = parseInt(x);
+        let y = prompt("Inserisci un altro numero");
+        y = parseInt(y);
 
+        document.getElementById("risultato").innerHTML = `Il risultato è ${x + y}`;
+        
     </script>
 </body>
 </html>
