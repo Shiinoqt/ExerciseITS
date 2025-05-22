@@ -54,33 +54,19 @@ class Telefono(str):
     
 
 if __name__ == "__main__":
-    # Esempio per Genere
-    print("Genere:", Genere.uomo, Genere.donna)
 
-    # Esempio per StatoOrdine
-    print("StatoOrdine:", StatoOrdine.preparazione, StatoOrdine.inviato, StatoOrdine.da_saldare, StatoOrdine.saldato)
+    # Esempio di utilizzo
+    myemails = {}
 
-    # Esempio per Indirizzo
-    indirizzo = Indirizzo("Via Roma", 10)
-    print("Indirizzo:", indirizzo.via(), indirizzo.civico())
+    email1 = Email("email@yahoo.com")
+    email2 = Email("email@yahoo.com")
 
-    # Esempio per CodiceFiscale
-    try:
-        cf = CodiceFiscale("RSSMRA85T10A562S")
-        print("CodiceFiscale:", cf)
-    except ValueError as e:
-        print(e)
+    myemails[0] = email1
+    myemails[1] = email2
+    
+    print(myemails[0] == myemails[1]) # True
+    print(myemails[0] is myemails[1]) # False
 
-    # Esempio per Email
-    try:
-        email = Email("esempio@email.com")
-        print("Email:", email)
-    except ValueError as e:
-        print(e)
 
-    # Esempio per Telefono
-    try:
-        telefono = Telefono("+390123456789")
-        print("Telefono:", telefono)
-    except ValueError as e:
-        print(e)
+
+
