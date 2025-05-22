@@ -1,6 +1,7 @@
 from enum import *
-from typing import Self
+from typing import Self, Any
 import re
+
 
 class Indirizzo:
     def __init__ (self, via: str, civico: int):
@@ -23,6 +24,11 @@ class Indirizzo:
             return False
         return (self.via(), self.civico()) == (other.via(), other.civico())
     
+class CAP(str):
+    def __new__(cls, value: str) -> Self:
+        if not re.match(r'\d{5}', value):
+            raise ValueError("CAP non valido")
+        return str.__new__(cls, value)
 
 class CodiceFiscale(str):
     def __new__(cls, value: str) -> Self:
@@ -66,6 +72,75 @@ class Imponibile(float):
             raise ValueError("Imponibile non valido")
         return float.__new__(cls, value)
 
+# class RealGEZ(float):
+#     def __new__(cls, v: float|int|str|bool|Self) -> Self:
+#         n: float = float.__new__(cls, v)
+
+#         if n >= 0:
+#             return n
+        
+#         raise ValueError("il valore N è negativo")
+
+class Valuta(str):
+    def __new__(cls, value: str) -> Self:
+        if not re.match(r'^[A-Z]{3}$', value):
+            raise ValueError("Valuta non valida")
+        return str.__new__(cls, value)
+    
+class Denaro:
+    def __init__(self, importo: float, valuta: Valuta) -> None:
+        self._importo = importo
+        self._valuta = valuta
+
+    def __str__(self) -> str:
+        return f"{self.importo():.2f} {self.valuta()}"
+    
+    def __eq__(self, other: Any):
+        if other is None or \
+            not isinstance(other, type(self)) or \
+            hash(self) != hash(other):
+            return False
+        return (self.importo(), self.valuta()) == (other.importo(), other.valuta())
+    
+    def importo(self):
+        return self._importo
+    
+    def valuta(self):
+        return self._valuta
+
+    def __add__ (self, other: Self) -> Self:
+        if self.valuta() != other.valuta():
+            raise ValueError("Importi di valute diverse!")
+        return Denaro(self.importo() + other.importo(), self.valuta())
+
+class FloatDenaro(float):
+    def __new__ (cls, importo: float, valuta: Valuta) -> Self:
+        d = super().__new__(cls, importo)
+
+        d._valuta = valuta
+        return d
+
+    def __str__(self) -> str:
+        return f"{self.importo():.2f} {self.valuta()}"
+    
+    def __eq__(self, other: Any):
+        if other is None or \
+            not isinstance(other, type(self)) or \
+            hash(self) != hash(other):
+            return False
+        return (self.importo(), self.valuta()) == (other.importo(), other.valuta())
+    
+    def importo(self):
+        return self.real
+    
+    def valuta(self):
+        return self._valuta
+
+    def __add__ (self, other: Self) -> Self:
+        if self.valuta() != other.valuta():
+            raise ValueError("Importi di valute diverse!")
+        return Denaro(self.importo() + other.importo(), self.valuta())
+
 if __name__ == "__main__":
     # Esempio di utilizzo
     try:
@@ -85,7 +160,4 @@ if __name__ == "__main__":
     
     print(myemails[0] == myemails[1]) 
     print(myemails[0] is myemails[1])
-
-
-
 
