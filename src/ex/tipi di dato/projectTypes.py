@@ -54,6 +54,12 @@ class Telefono(str):
     
 
 if __name__ == "__main__":
+    # Esempio di utilizzo
+    try:
+        cf = CodiceFiscale("RSSMRA85M01H501Z")
+        print(f"Codice Fiscale: {cf}")
+    except ValueError as e:
+        print(e)
 
     # Esempio di utilizzo
     myemails = {}
@@ -64,8 +70,8 @@ if __name__ == "__main__":
     myemails[0] = email1
     myemails[1] = email2
     
-    print(myemails[0] == myemails[1]) # True
-    print(myemails[0] is myemails[1]) # False
+    print(myemails[0] == myemails[1]) 
+    print(myemails[0] is myemails[1])
 
 
 
