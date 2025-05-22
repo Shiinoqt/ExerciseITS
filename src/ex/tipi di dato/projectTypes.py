@@ -1,5 +1,5 @@
 from enum import *
-from typing import *
+from typing import Self
 import re
 
 class Indirizzo:
@@ -25,25 +25,25 @@ class Indirizzo:
     
 
 class CodiceFiscale(str):
-    def __new__(cls, value: str):
+    def __new__(cls, value: str) -> Self:
         if not re.match(r'[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]', value):
             raise ValueError("Codice Fiscale non valido")
         return str.__new__(cls, value)
     
 class PartitaIva(str):
-    def __new__(cls, value: str):
+    def __new__(cls, value: str) -> Self:
         if not re.match(r'\d{11}', value):
             raise ValueError("Partita IVA non valida")
         return str.__new__(cls, value)
 
 class Email(str):
-    def __new__(cls, value: str):
+    def __new__(cls, value: str) -> Self:
         if not re.match(r"\w+@\w+\.[a-z]{2,3}\.*[a-z]*", value):
             raise ValueError("Email non valida")
         return str.__new__(cls, value)
     
 class Telefono(str):
-    def __new__(cls, value: str):
+    def __new__(cls, value: str) -> Self:
         if not re.match(r"\+?\d{1,3}?\d{1,4}?\d{4,10}", value):
             raise ValueError("Telefono non valido")
         return str.__new__(cls, value)
@@ -55,13 +55,13 @@ class StatoOrdine(StrEnum):
     saldato = auto()
 
 class Aliquota(float):
-    def __new__(cls, value: float):
+    def __new__(cls, value: float) -> Self:
         if not (0 <= value <= 1):
             raise ValueError("Aliquota non valida")
         return float.__new__(cls, value)
     
 class Imponibile(float):
-    def __new__(cls, value: float):
+    def __new__(cls, value: float) -> Self:
         if value < 0:
             raise ValueError("Imponibile non valido")
         return float.__new__(cls, value)
