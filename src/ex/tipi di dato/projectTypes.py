@@ -1,9 +1,16 @@
 from enum import *
-
+from typing import *
+import re
 
 class Genere(StrEnum):
     uomo = auto()
     donna = auto()
+
+class StatoOrdine(StrEnum):
+    preparazione = auto()
+    inviato = auto()
+    da_saldare = auto()
+    saldato = auto()
 
 class Indirizzo:
     def __init__ (self, via: str, civico: int):
@@ -26,12 +33,54 @@ class Indirizzo:
             return False
         return (self.via(), self.civico()) == (other.via(), other.civico())
     
-if __name__ == "__main__":
-    i1 = Indirizzo("Via Roma", 1)
-    i2 = Indirizzo("Via Roma", 1)
-    i3 = Indirizzo("Via Milano", 2)
+
+class CodiceFiscale(str):
+    def __new__(cls, value: str):
+        if not re.match(r'[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]', value):
+            raise ValueError("Codice Fiscale non valido")
+        return str.__new__(cls, value)
+
+class Email(str):
+    def __new__(cls, value: str):
+        if not re.match(r"\w+@\w+\.[a-z]{2,3}\.*[a-z]*", value):
+            raise ValueError("Email non valida")
+        return str.__new__(cls, value)
     
-    print(i1 == i2)  # True
-    print(i1 == i3)  # False
-    print(i1 == None)  # False
-    print(i1 == "Via Roma")  # False
+class Telefono(str):
+    def __new__(cls, value: str):
+        if not re.match(r"\+?\d{1,3}?\d{1,4}?\d{4,10}", value):
+            raise ValueError("Telefono non valido")
+        return str.__new__(cls, value)
+    
+
+if __name__ == "__main__":
+    # Esempio per Genere
+    print("Genere:", Genere.uomo, Genere.donna)
+
+    # Esempio per StatoOrdine
+    print("StatoOrdine:", StatoOrdine.preparazione, StatoOrdine.inviato, StatoOrdine.da_saldare, StatoOrdine.saldato)
+
+    # Esempio per Indirizzo
+    indirizzo = Indirizzo("Via Roma", 10)
+    print("Indirizzo:", indirizzo.via(), indirizzo.civico())
+
+    # Esempio per CodiceFiscale
+    try:
+        cf = CodiceFiscale("RSSMRA85T10A562S")
+        print("CodiceFiscale:", cf)
+    except ValueError as e:
+        print(e)
+
+    # Esempio per Email
+    try:
+        email = Email("esempio@email.com")
+        print("Email:", email)
+    except ValueError as e:
+        print(e)
+
+    # Esempio per Telefono
+    try:
+        telefono = Telefono("+390123456789")
+        print("Telefono:", telefono)
+    except ValueError as e:
+        print(e)
