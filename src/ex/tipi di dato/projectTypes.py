@@ -72,14 +72,14 @@ class Imponibile(float):
             raise ValueError("Imponibile non valido")
         return float.__new__(cls, value)
 
-# class RealGEZ(float):
-#     def __new__(cls, v: float|int|str|bool|Self) -> Self:
-#         n: float = float.__new__(cls, v)
+class RealGEZ(float):
+    def __new__(cls, v: float|int|str|bool|Self) -> Self:
+        n: float = float.__new__(cls, v)
 
-#         if n >= 0:
-#             return n
+        if n >= 0:
+             return n
         
-#         raise ValueError("il valore N è negativo")
+        raise ValueError("il valore N è negativo")
 
 class Valuta(str):
     def __new__(cls, value: str) -> Self:
