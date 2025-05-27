@@ -68,6 +68,9 @@ class Dipartimento:
     def set_indirizzo(self, indirizzo: Indirizzo|None) -> None:
         self._indirizzo = indirizzo
 
+    def remove_indirizzo(self) -> None:
+        self.set_indirizzo(None)
+
     # Inizializzatore
     def __init__(self, nome: str, telefono: Telefono, indirizzo: Indirizzo|None = None) -> None:
         self._telefono = set()

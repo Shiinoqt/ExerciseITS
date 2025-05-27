@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='result'></div>
+    <div id='result2'></div>
+
+    <script>
+        function equals(a, b) {
+            console.log(a === b); // This will log true or false to the console
+            return a === b;
+        }
+
+        let result = equals(1, 1);
+        let result2 = equals(1, 2);
+
+        document.getElementById('result').innerHTML = `1 is equal to 1? ${result}`;
+        document.getElementById('result2').innerHTML = `1 is equal to 2? ${result2}`;
+    </script>
+</body>
+</html>

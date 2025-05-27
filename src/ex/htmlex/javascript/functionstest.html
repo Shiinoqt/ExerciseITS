@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="somma"></div>
+    <div id="result"></div>
+
+
+    <script>
+        // Funzione che non ritorna nulla
+        function sum(a, b) {
+            document.getElementById("somma").innerHTML = a + b;
+        }
+
+        sum(5, 10);
+
+
+        // Funzione che ritorna un valore
+        function hello(name) {
+            return `Hello, ${name}!`;
+        }
+
+        let output = hello("World");
+        document.getElementById("result").innerHTML = output;
+    </script>
+    
+</body>
+</html>
