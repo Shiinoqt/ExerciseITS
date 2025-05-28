@@ -141,23 +141,32 @@ class FloatDenaro(float):
             raise ValueError("Importi di valute diverse!")
         return Denaro(self.importo() + other.importo(), self.valuta())
 
-if __name__ == "__main__":
-    # Esempio di utilizzo
-    try:
-        cf = CodiceFiscale("RSSMRA85M01H501Z")
-        print(f"Codice Fiscale: {cf}")
-    except ValueError as e:
-        print(e)
+class Citta:
+    _nome: str
+    _abitanti: int
 
-    # Esempio di utilizzo
-    myemails = {}
-
-    email1 = Email("email@yahoo.com")
-    email2 = Email("email@yahoo.com")
-
-    myemails[0] = email1
-    myemails[1] = email2
     
-    print(myemails[0] == myemails[1]) 
-    print(myemails[0] is myemails[1])
+
+
+
+
+# if __name__ == "__main__":
+#     # Esempio di utilizzo
+#     try:
+#         cf = CodiceFiscale("RSSMRA85M01H501Z")
+#         print(f"Codice Fiscale: {cf}")
+#     except ValueError as e:
+#         print(e)
+
+#     # Esempio di utilizzo
+#     myemails = {}
+
+#     email1 = Email("email@yahoo.com")
+#     email2 = Email("email@yahoo.com")
+
+#     myemails[0] = email1
+#     myemails[1] = email2
+    
+#     print(myemails[0] == myemails[1]) 
+#     print(myemails[0] is myemails[1])
 
