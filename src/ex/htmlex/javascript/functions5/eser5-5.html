@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="stampaAsterischi()">
+    <div id="risultato"></div>
+   <script>
+        function stampaAsterischi() { 
+            // Ciclo for da 10 a 30
+            for (let i = 10; i <= 30; i++) {
+                // Crea una stringa con il numero corretto di asterischi
+                let rigaAsterischi = '';
+                for (let j = 0; j < i; j++) {
+                    rigaAsterischi += '*';
+                }
+                
+                // Crea un elemento div per ogni riga
+                const rigaDiv = document.createElement('div');
+                rigaDiv.className = 'riga';
+                rigaDiv.textContent = `${rigaAsterischi}`;
+                
+                // Aggiunge la riga al risultato
+                risultato.appendChild(rigaDiv);
+            }
+        }
+    </script>
+</body>
+</html>
