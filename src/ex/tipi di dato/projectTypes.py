@@ -145,9 +145,44 @@ class Citta:
     _nome: str
     _abitanti: int
 
+    def __init__ (self, nome: str, abitanti: int) -> Self:
+        self._nome = nome.strip().title()
+        self._abitanti = abitanti
+
+    def nome(self):
+        return self._nome
     
+    def abitanti(self):
+        return self._abitanti
+    
+    def __eq__ (self, other):
+        if other is None or \
+            not isinstance(other, type(self)) or \
+            hash(self) != hash(other):
+            return False
+        return (self.nome(), self.abitanti()) == (other.nome(), other.abitanti())
+    
+    def __hash__(self):
+        return hash((self._nome, self._abitanti))
+    
+class Nazione:
+    _nome: str
 
+    def __init__ (self, nome: str) -> Self:
+        self._nome = nome.strip().title()
 
+    def nome(self):
+        return self._nome
+
+    def __eq__ (self, other):
+        if other is None or \
+            not isinstance(other, type(self)) or \
+            hash(self) != hash(other):
+            return False
+        return self.nome() == other.nome()
+    
+    def __hash__(self):
+        return hash(self.nome())
 
 
 # if __name__ == "__main__":
