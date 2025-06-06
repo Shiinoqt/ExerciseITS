@@ -38,13 +38,16 @@ class ContactManager:
         if old_phone_number not in self.contacts[contact_name]:
             raise ValueError("Errore: Il numero di telefono non è presente")
         else:
-            self.contacts[contact_name].remove(old_phone_number)
-            self.contacts[contact_name].append(new_phone_number)
+            index: int = self.contacts[contact_name].index(old_phone_number)
+            self.contacts[contact_name][index] = new_phone_number
+    
+            #self.contacts[contact_name].remove(old_phone_number)
+            #self.contacts[contact_name].append(new_phone_number)
         # Return a new dictionary with the updated contact
         return {contact_name: list(self.contacts[contact_name])}
 
     def list_contacts(self):
-        return self.contacts.keys()
+        return list(self.contacts.keys())
     
     def list_phone_numbers(self, contact_name: str):
         if contact_name not in self.contacts:
@@ -52,12 +55,12 @@ class ContactManager:
         return self.contacts[contact_name]
     
     def search_contact(self, phone_number: str):
-        result = []
+        result: list[str] = []
         for contact, numbers in self.contacts.items():
             if phone_number in numbers:
                 result.append(contact)
         if not result:
-            raise ValueError("Nessun contatto trovato")
+            raise Exception("Nessun contatto trovato")
         
         return result
 
@@ -74,7 +77,7 @@ if __name__ == "__main__":
     print("Update phone number:")
     print(lista1.update_phone_number("Giorgio", "3231321", "333333333"))
     print("List contacts:")
-    print(list(lista1.list_contacts()))
+    print(lista1.list_contacts())
     print("List phone numbers for Giorgio:")
     print(lista1.list_phone_numbers("Giorgio"))
     print(lista1.search_contact("333333333"))
