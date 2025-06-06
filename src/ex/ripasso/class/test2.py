@@ -19,11 +19,13 @@ class Movie:
         
         
 class Customer:
-
-    def __init__(self, customer_id: str, name: str, rented_movies: list[Movie] = []):
+    def __init__(self, customer_id: str, name: str, rented_movies: list[Movie] = None):
         self.customer_id = customer_id
         self.name = name
-        self.rented_movies = rented_movies
+        if rented_movies is None:
+            self.rented_movies = []
+        else:
+            self.rented_movies = rented_movies
     
     def rent_movie(self, movie: Movie):
         if movie.is_rented == False:
@@ -35,14 +37,22 @@ class Customer:
     def return_movie(self, movie: Movie):
         if movie not in self.rented_movies: 
             raise Exception(f"Il film '{movie.title}' non è stato noleggiato da questo cliente.")
-        
+
+        movie.is_rented = False
         self.rented_movies.remove(movie)
 
 
 class VideoRentalStore:
-    def __init__(self, movies: dict[str, Movie] = {}, customers: dict[str, Customer] = {}):
-        self.movies = movies
-        self.customers = customers
+    def __init__(self, movies: dict[str, Movie] = None, customers: dict[str, Customer] = None):
+        if movies is None:
+            self.movies = {}
+        else:    
+            self.movies = movies
+
+        if customers is None:
+            self.customers = {}
+        else:
+            self.customers = customers
 
     def add_movie(self, movie_id: str, title: str, director: str):
         if movie_id not in self.movies:
@@ -63,12 +73,8 @@ class VideoRentalStore:
         if movie_id not in self.movies:
             raise Exception(f"Il film con ID '{movie_id}' non esiste.")
         
-        # "Creates" an instance of customer in the rental using his id
         customer = self.customers[customer_id]
-
-        # "Creates" an instance of movie in the rental using id
         movie = self.movies[movie_id]
-
         customer.rent_movie(movie)
 
     def return_movie(self, customer_id: str, movie_id: str):
@@ -131,4 +137,4 @@ if __name__ == "__main__":
     try:
         print(store.get_rented_movies("999"))
     except Exception as e:
-        print("Expected error:", e)
+        print("Expected error:", e)        # 
