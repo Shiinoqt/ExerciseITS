@@ -3,9 +3,9 @@ import re
 
 class Volo:
     _codice: str
-    _durata_min: int
+    _durata_min: IntGEZ
 
-    def __init__(self, codice: str, durata_min: int) -> None:
+    def __init__(self, codice: str, durata_min: IntGEZ) -> None:
         if durata_min <= 0:
             raise ValueError('Durata deve essere maggiore di 0')
         
@@ -15,7 +15,7 @@ class Volo:
     def codice(self) -> str:
         return self._codice
     
-    def durata_min(self) -> int:
+    def durata_min(self) -> IntGEZ:
         return self._durata_min
 
     def __eq__(self, other):
@@ -29,22 +29,24 @@ class Volo:
         return hash(self._codice)
 
 class Compagnia:
-    _nome: str
-    _anno: int
-    _voli: list[Volo]  
+    _nome: str #noto alla nascita
+    _anno: IntGE1900 #immutabile noto alla nascita
+    _comp_direz_citta: Citta #noto alla nascitas
+    _voli: set[Volo]
 
-    def __init__(self, nome: str, anno: int) -> None:
-        if anno <= 1900: 
-            raise ValueError('Anno deve essere maggiore di 1900')
-        
-        self._nome = nome
+    def __init__(self, nome: str, anno: IntGE1900) -> None:
+        self._setNome(nome)
         self._anno = anno
         self._voli = set[Volo] 
+
+    def setNome(self, nome) -> None:
+        self._nome = nome
+        
 
     def nome(self) -> str:
         return self._nome
     
-    def anno(self) -> int:
+    def anno(self) -> IntGE1900:
         return self._anno
     
     def voli(self) -> frozenset[Volo]:

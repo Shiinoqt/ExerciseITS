@@ -184,6 +184,33 @@ class Nazione:
     def __hash__(self):
         return hash(self.nome())
 
+class IntGE1900(int):
+    def __new__(cls, date: float|int|str|bool|Self):
+        date: int = super().__new__(cls, date)
+
+        if date < 1900:
+            raise ValueError("")
+        
+        return date
+
+class IntGEZ(int):
+    def __new__(cls, value: float|int|str|bool|Self) -> Self:
+        value: int = super().__new__(cls, value)
+
+        if value <= 0:
+            raise ValueError("")
+        
+        return value
+    
+class IntGZ(int):
+    def __new__(cls, value: float|int|str|bool|Self) -> Self:
+        value: int = super().__new__(cls, value)
+
+        if value < 0:
+            raise ValueError("")
+        
+        return value
+
 
 # if __name__ == "__main__":
 #     # Esempio di utilizzo
