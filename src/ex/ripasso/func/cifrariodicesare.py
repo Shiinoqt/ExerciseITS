@@ -1,23 +1,23 @@
 from string import ascii_lowercase
 
-# def caesar_cipher(text, key):
-#     result = []
-#     for char in text:
-#         if char.isalpha():
-#             shift = key % 26
-#             base = ord('a') if char.islower() else ord('A')
-#             new_char = chr((ord(char) - base + shift) % 26 + base)
-#             result.append(new_char)
-#         else:
-#             result.append(char)
-#     return ''.join(result)
-
+def caesar_cipher(text, key):
+    letters = ascii_lowercase
+    result = ''
+    for char in text:
+        if char.lower() in letters:
+            index = letters.index(char.lower())
+            shifted_index = (index + key) % 26
+            new_char = letters[shifted_index]
+            if char.isupper():
+                new_char = new_char.upper()
+            result += new_char
+        else:
+            result += char
+    return result
 
 # Example usage:
-# if __name__ == "__main__":
-#     original_text = "Hello, World!"
-#     key = 3
-    
-#     encrypted_text = caesar_cipher(original_text, key)
-#     print(f"Encrypted: {encrypted_text}")
-    
+if __name__ == "__main__":
+    text = "Hello, World!"
+
+    encrypted_text = caesar_cipher(text, 2)
+    print(f"{encrypted_text}")

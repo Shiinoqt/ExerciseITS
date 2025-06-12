@@ -13,9 +13,9 @@ print(validip("192.168.0.a"))
 
 def validip2(address: str) -> bool:
 
-    address = address.split('.')
+    parts = address.split('.')
 
-    for part in address:
+    for part in parts:
         if not part.isdigit():
             return False
         if not 0 <= int(part) <= 255:
