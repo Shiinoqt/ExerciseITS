@@ -1,6 +1,9 @@
+import React from 'react';
 import './App.css';
 import Componente1 from './Componente1';
-
+import { anagrafica } from './dati/dati';
+import StampaNumeri from './printNumbers';
+import Tabellina from './tabellina';
 
 function getDate() {
   return new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
@@ -8,15 +11,29 @@ function getDate() {
 
 function App() {
   return (
+
     <div className="App">
+      <h1>Benvenuti in React!</h1>
+      {
+        anagrafica.map((persona) => {
+          return (
+            <div key={persona.id}>
+              <h2>{persona.nome} {persona.cognome}</h2>
+            </div>
+          );
+        })
+      }
+
       <header className="App-header">
         <Componente1/>
-        <img src="https://media.licdn.com/dms/image/v2/D4D03AQFQ73Lcq0DEBQ/profile-displayphoto-shrink_800_800/B4DZXKdTPAG4Ac-/0/1742858435677?e=1755129600&v=beta&t=v4E2ZGu13iZ-zCjDXKhDF-hBGaBdZzQ5AEsPvWHSqY8" className="App-logo" alt="logo" />
+        <img src="https://www.its-ictacademy.com/wp-content/uploads/2023/12/Logo_ITS_Academy_bianco.png" className="App-logo" alt="logo" />
         <h2>
           {
             getDate()
           }
         </h2>
+        <StampaNumeri />
+        <Tabellina n={2} />
         <p>learn how to sybau!</p>
       </header>
     </div>
