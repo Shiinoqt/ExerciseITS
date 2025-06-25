@@ -1,4 +1,5 @@
 import random
+from typing import Optional
 
 class Creatura:
     def __init__(self, nome: str) -> None:
@@ -42,7 +43,7 @@ class Alieno(Creatura):
         return f"Alieno: {self.getNome()+str(self.getMatricola())}"
 
 class Mostro(Creatura):
-    def __init__(self, nome: str, urlo_vittoria: str = None, gemito_sconfitta: str = None) -> None:
+    def __init__(self, nome: str, urlo_vittoria: Optional[str] = None, gemito_sconfitta: Optional[str] = None) -> None:
         super().__init__("Mostro")
         self.setNome(nome)
         self.setVittoria(urlo_vittoria)
@@ -98,6 +99,34 @@ def pariUguali(a: list[int], b: list[int]):
 
     return c
 
+def proclamaVincitore(c: Creatura):
+    if not isinstance(c, Creatura):
+        raise ValueError("Il vincitore deve essere una creatura valida.")
+    
+    if isinstance(c, Mostro):
+        print('\nI Mostri hanno vinto!\n')
+    else:
+        print('\nGli Alieni hanno vinto!\n')
+    
+    height = 5
+    # Metodo str
+    creature_text = str(c)
+    width = len(creature_text) + 10
+
+    # Spazio disponibile togliendo la lunghezza di str e i due '*'
+    available_space = width - 2 - len(creature_text)
+
+    left_space = available_space // 2 
+    right_space = available_space - left_space
+
+    for i in range(height):
+        if i == 0 or i == height - 1:  
+            print('*' * width)
+        elif i == 2: 
+            print('*' + ' ' * left_space + creature_text + ' ' * right_space + '*')
+        elif i == 1 or i == height - 2: 
+            print('*' + ' ' * (width - 2) + '*')
+
 def combattimento(a: Alieno, b: Mostro):
     if not isinstance(a, Alieno) or not isinstance(b, Mostro):
         print("Combattimento non valido: uno dei partecipanti non è della classe corretta.")
@@ -120,15 +149,13 @@ def combattimento(a: Alieno, b: Mostro):
     if colpib >= 4:
         for i in range(0, 3):
             print(f'{b.getVittoria()}')
+
+        proclamaVincitore(b)
+
     else:
         print(f'{b.getSconfitta()}')
+        proclamaVincitore(a)
 
-def proclamaVincitore(c: Creatura):
-    if not isinstance(c, Creatura):
-        raise ValueError("Il vincitore deve essere una creatura valida.")
-    
-    height = 5
-    lenght = len(c.__str__()) + 10
 
     
 
@@ -144,4 +171,3 @@ if __name__ == "__main__":
     print(f'\nCombattimento\n')
 
     fight = combattimento(alieno1, mostro1)
-
