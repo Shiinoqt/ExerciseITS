@@ -102,8 +102,8 @@ def HareMove():
 
         
 def Position():
-    print(f"La tartaruga si trova alla posizione: {trackTurtle.index("T")}")
-    print(f"La lepre si trova alla posizione: {trackHare.index("H")}\n")
+    print(f"La tartaruga si trova alla posizione: {trackTurtle.index('T')}")
+    print(f"La lepre si trova alla posizione: {trackHare.index('H')}\n")
     print("\n")
 
 
