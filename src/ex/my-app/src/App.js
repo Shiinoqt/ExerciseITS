@@ -35,6 +35,8 @@ function App() {
         <StampaNumeri />
         <Tabellina n={2} />
         <p>learn how to sybau!</p>
+
+          
       </header>
     </div>
   );
