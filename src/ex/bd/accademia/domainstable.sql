@@ -12,7 +12,7 @@ create type CausaAssenza as
 
 create domain PosInteger as integer 
     default 0 
-    check (value >= 0);
+    check (value >= 0);2
 
 create domain StringaM as varchar(100);
 
