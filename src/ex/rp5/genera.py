@@ -24,19 +24,3 @@ def genera(n: int) -> list[list[int]]:
         mat.append(row)
 
     return mat
-
-
-def printMAT(mat: list[list[int]]) -> None:
-
-    for r in range(len(mat)):
-
-        for c in range(len(mat[r])):
-            print(f"{mat[r][c]:<5}", end="")
-
-        print("\n")
-
-
-if __name__ == "__main__":
-
-    mat = genera(4)
-    printMAT(mat)
