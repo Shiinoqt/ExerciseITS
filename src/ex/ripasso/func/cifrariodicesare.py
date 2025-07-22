@@ -19,5 +19,5 @@ def caesar_cipher(text, key):
 if __name__ == "__main__":
     text = "Hello, World!"
 
-    encrypted_text = caesar_cipher(text, 2)
+    encrypted_text = caesar_cipher(text, 1)
     print(f"{encrypted_text}")
