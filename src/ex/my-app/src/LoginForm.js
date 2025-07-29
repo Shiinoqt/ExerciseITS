@@ -7,6 +7,10 @@ const LoginForm = () => {
 
     const gestioneDati = (e) => {
         e.preventDefault();
+        if (!email || !password) {
+            setMessage("Please fill in both fields.");
+            return;
+        }
         setMessage(email + " " + password);
     }
 
