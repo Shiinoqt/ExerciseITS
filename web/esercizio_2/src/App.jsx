@@ -2,13 +2,11 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Saluto from './Saluto'
+import CardUtente from './CardUtente'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <Saluto />
+    <CardUtente nome="Mario Rossi" email="okdwok" immagine= "https:placehold.co/300x300" />
   )
 }
 
