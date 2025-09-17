@@ -1,4 +1,4 @@
-import Reactx, { useState } from 'react';
+import React, { useState } from 'react';
 
 function CampoRicerca() {
     const [testo, setTesto] = React.useState('');
