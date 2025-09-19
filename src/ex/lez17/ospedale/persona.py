@@ -1,8 +1,4 @@
 class Persona:
-    __first_name: str
-    __last_name: str
-    __age: int
-
     def __init__(self, first_name, last_name) -> None:
         self.set_first_name(first_name)
         self.set_last_name(last_name)
@@ -42,7 +38,7 @@ class Persona:
             print("L'età deve essere un intero non negativo!")
 
     def greet(self) -> str:
-        if self.get_first_name is None or self.get_last_name() is None or self.get_age() is None:
+        if self.__first_name is None or self.__last_name is None or self.__age is None:
             raise Exception("Error: some attributes are not set")
         
-        return f"Ciao, mi chiamo {self.get_first_name()} {self.get_last_name()} e ho {self.get_age()} anni."
+        return f"Ciao, mi chiamo {self.__first_name} {self.__last_name} e ho {self.__age} anni."
