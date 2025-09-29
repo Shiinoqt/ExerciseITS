@@ -7,7 +7,7 @@ create domain IntG1 as integer
 	check (value > 1);
 
 create domain URL as varchar
-	check (value ~ '...');
+--	check (value ~ '...');
 
 create domain RealGEZ as real 
 	check (value >= 0);
