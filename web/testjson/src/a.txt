@@ -1,0 +1,151 @@
+import React, { useEffect, useState } from "react";
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList";
+
+const API_URL = "http://localhost:3000/tasks";
+const TodoApp = () => {
+  const [tasks, setTasks] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchTask = async () => {
+    try {
+      const response = await fetch(API_URL);
+
+      console.log(response);
+      const data = await response.json();
+      if (!response.ok) throw new Error("Errore nella fetch");
+       
+      setTasks(data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const deleteTask= async (id)=>{
+    await  fetch(API_URL+"/"+id,{method:"DELETE"});
+     fetchTask(API_URL)
+  }
+
+  useEffect(()=>{
+        fetchTask(API_URL)
+  },[]);
+  return (
+    <div className="container m-4">
+      <h1 className="mb-4">Todo Do List</h1>
+      <TodoForm></TodoForm>
+      <TodoList tasks={tasks} onDeleteTask={deleteTask}></TodoList>
+    </div>
+  );
+};
+
+export default TodoApp;
+const TodoItem = ({task,handleDeleteTask}) => {
+  return (
+    <li  className="list-group-item d-flex justify-content-between"  >
+        <span>{task.text}</span>
+        <button className="btn btn-sm btn-danger" onClick={()=>{handleDeleteTask(task.id)}}>Elimna</button>
+        </li>
+  )
+}
+
+export default TodoItem
+import React from 'react'
+import TodoItem from './TodoItem'
+
+const TodoList = ({tasks,onDeleteTask}) => {
+console.log("todolist->",tasks);
+  return (
+    <ul className="list-group">
+        {
+            tasks.map((t)=>{
+              return(  <TodoItem key={t.id} task={t} handleDeleteTask={onDeleteTask}></TodoItem>)
+            })
+        }
+           
+       
+    </ul>
+  )
+}
+
+export default TodoList
+Roberto Delisio
+11:57 AM
+import React from 'react'
+import TodoItem from './TodoItem'
+
+const TodoList = ({tasks,onDeleteTask}) => {
+console.log("todolist->",tasks);
+  return (
+    <ul className="list-group">
+        {
+            tasks.map((t)=>{
+              return(  <TodoItem key={t.id} task={t} handleDeleteTask={onDeleteTask}></TodoItem>)
+            })
+        }
+           
+       
+    </ul>
+  )
+}
+
+export default TodoList
+import React from 'react'
+
+const TodoItem = ({task,handleDeleteTask}) => {
+  return (
+    <li  className="list-group-item d-flex justify-content-between"  >
+        <span>{task.text}</span>
+        <button className="btn btn-sm btn-danger" onClick={()=>{handleDeleteTask(task.id)}}>Elimna</button>
+        </li>
+  )
+}
+
+export default TodoItem
+import React, { useEffect, useState } from "react";
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList";
+
+const API_URL = "http://localhost:3000/tasks";
+const TodoApp = () => {
+  const [tasks, setTasks] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchTask = async () => {
+    try {
+      const response = await fetch(API_URL);
+
+      console.log(response);
+      const data = await response.json();
+      if (!response.ok) throw new Error("Errore nella fetch");
+       
+      setTasks(data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const deleteTask= async (id)=>{
+    await  fetch(API_URL+"/"+id,{method:"DELETE"});
+     fetchTask(API_URL)
+  }
+
+  useEffect(()=>{
+        fetchTask(API_URL)
+  },[]);
+  return (
+    <div className="container m-4">
+      <h1 className="mb-4">Todo Do List</h1>
+      <TodoForm></TodoForm>
+      <TodoList tasks={tasks} onDeleteTask={deleteTask}></TodoList>
+    </div>
+  );
+};
+
+export default TodoApp;
+yvz-mesf-bxs

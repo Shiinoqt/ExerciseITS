@@ -1,15 +1,18 @@
 import React from 'react'
 import TodoItem from './TodoItem'
 
-const TodoList = ({tasks, onDeleteTask}) => {
+const TodoList = ({ tasks, onDeleteTask, onToggleTask }) => {
   return (
-    <div>
-  {
-    tasks.map(task => (
-      <TodoItem key={task.id} task={task} onDeleteTask={onDeleteTask}></TodoItem>
-    ))
-  }
-    </div>
+    <ul className="list-group">
+      {tasks.map(task => (
+        <TodoItem 
+          key={task.id} 
+          task={task} 
+          onDeleteTask={onDeleteTask}
+          onToggleTask={onToggleTask}
+        />
+      ))}
+    </ul>
   )
 }
 

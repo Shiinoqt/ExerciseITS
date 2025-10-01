@@ -15,7 +15,7 @@ where budget > 50000
 	and fine <= 'current_date'; 
 
 --4 
-select avg(oredurata) as media, max(oredurata) as massimo, min(oredurata) as minimo
+select round(avg(oredurata)::numeric, 2) as media, max(oredurata) as massimo, min(oredurata) as minimo
 from progetto p, attivitaprogetto ap
 where ap.progetto = p.id 
 	and p.nome = 'Pegasus';
