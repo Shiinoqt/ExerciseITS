@@ -3,10 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import TodoApp from './todolist/TodoApp'
+import ProvaRoutes from './router/ProvaRoutes'
 
 function App() {
   return (
-    <TodoApp></TodoApp>
+    <>
+      <ProvaRoutes></ProvaRoutes>
+      <TodoApp></TodoApp>
+    </>
   )
 }
 

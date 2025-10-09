@@ -1,0 +1,53 @@
+1. Requisti degli utenti. Degli utenti interessa:
+    1.1 nome 
+    1.2 cognome
+    1.3 se responsabili:
+    1.4 se visitatori:
+
+2. Requisiti delle opere:
+    2.1 nome (stringa univ)
+    2.2 categoria (dipinto, scultura, mosaico, manoscritto, etc..)
+    2.3 autore
+    2.4 anno di realizzazione (data)
+    2.5 la tecnica (stringa 0..1)
+    2.6 correnti artistiche (stringa)
+
+3. Requisiti degli autori:
+    3.1 nome d'arte (stringa)
+    3.2 luogo di nascita (stringa)
+    3.3 nascita (Data)
+    3.3 morte (opzionale)
+    3.4 opere (un'opera, v. req. 1)
+
+4. Requisiti delle esposizioni:
+    4.1 il responsabile che la gestisce (v. req. 1.3)
+    4.2 le opere esposte (v. req. 2)
+    4.3 se permanenti:
+    4.4 se temporanee:
+        4.4.1 il periodo di tempo(data)
+        4.4.1 il tema (???)
+
+5. Requisiti tariffa
+    5.1 nome (stringa)
+    5.2 prezzo (reale >= 0)
+
+6. Requisiti dei biglietti:
+    6.1 la tariffa (v. req. 5)
+    6.2 l'istante acquisto (dataora)
+    6.3 validita (data)
+    6.4 tipo:
+        6.4.1 se standard:
+            6.4.1.1 prezzo (pari alla tariffa scelta)
+        6.4.2 se extended access:
+            6.4.2.1 prezzo (somma al prezzo base della tariffa selezionata i prezzi di tutte le esposizioni permanenti scelte.)
+
+999. Il sistema deve permettere le seguenti funzionalità: 
+	999.1 Il biglietto 'Standard' deve dare accesso alle esposizioni permanenti 
+	999.2 Il biglietto 'Extended access' deve dare accesso a tutte le esposizioni permanenti e a un insieme di esposizioni temporanee a scelta dell'acquirente 
+	999.3 inserimento e rimozione di opere d’arte
+	999.4 creazione di un’esposizione, con le opere relative
+	999.5 aggiunta di un artista e modifica delle sue informazioni
+
+	999.6 modifica delle informazioni di un’esposizione
+	999.7 registrazione della vendita di uno o piu biglietti di una certa tipologia e validi per una certa data.
+	999.8 calcolo degli introiti totali per una certa esposizione temporanea, in un dato periodo.
