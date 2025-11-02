@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h2>Welcome to Flask!</h2>
+    <p>Go to <a href="{{ url_for('about') }}">About</a></p>
+    <p>Try <a href="{{ url_for('user_profile', username='john_doe') }}">User Profile</a></p>
+    <p>Square Example: <a href="{{ url_for('square', number=5) }}">5²</a></p>
+    <p>Sum Example: <a href="{{ url_for('sum_numbers', a=3, b=7) }}">3 + 7</a></p>
+</body>
+</html>
