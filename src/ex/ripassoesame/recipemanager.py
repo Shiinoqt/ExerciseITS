@@ -42,3 +42,6 @@ class RecipeManager:
             if ingredient in ingredients:
                 result[name] = ingredients
         return result
+
+    def test():
+        pass
