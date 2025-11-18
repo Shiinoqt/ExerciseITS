@@ -89,8 +89,8 @@ app = Flask(__name__)
 def home():
     links = {
         "rides": url_for('list_rides'),
-        "ride_rc1": url_for('get_ride', id='rc1'),
-        "ride_rc1_wait": url_for('ride_wait', id='rc1', crowd_factor=4.0)
+        "ride_example": url_for('get_ride', id='rc1'),
+        "ride_example_wait": url_for('ride_wait', id='rc1', crowd_factor=4.0)
     }
 
     return jsonify({
