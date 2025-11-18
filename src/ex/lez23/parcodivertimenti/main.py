@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from flask import Flask
+from flask import Flask, jsonify, url_for
 
 class Ride(ABC):
     @abstractmethod
@@ -71,16 +71,63 @@ class Park:
         return [ride.info() for ride in self.rides]
     
 
-if __name__ == "__main__":
-    park = Park()
 
-    rc1 = RollerCoaster("rc1", "Thunderbolt", 120, 3)
-    car1 = Carousel("car1", "Merry-Go-Round", 0, ["horse", "lion", "elephant"])
+park = Park()
 
-    park.add(rc1)
-    park.add(car1)
+rc1 = RollerCoaster("rc1", "Thunderbolt", 120, 3)
+car1 = Carousel("car1", "Merry-Go-Round", 0, ["horse", "lion", "elephant"])
 
-    print(park.list_all())
+park.add(rc1)
+park.add(car1)
+
+print(park.list_all())
 
 
 app = Flask(__name__)
+
+@app.route("/", methods=["GET"])
+def home():
+    links = {
+        "rides": url_for('list_rides'),
+        "ride_rc1": url_for('get_ride', id='rc1'),
+        "ride_rc1_wait": url_for('ride_wait', id='rc1', crowd_factor=4.0)
+    }
+
+    return jsonify({
+        "description": "Welcome to Park API",
+        "links": links
+    })
+
+@app.route("/rides", methods=["GET"])
+def list_rides():
+    ride_list = park.list_all()
+    return jsonify(ride_list)
+
+@app.route("/ride/<id>", methods=["GET"])
+def get_ride(id: str):
+    ride = park.get(id)
+    if ride is None:
+        return jsonify({"error": "Ride not found"}), 404
+
+    return jsonify({
+        "id": ride.id,
+        "name": ride.name,
+        "min_height_cm": ride.min_height_cm,
+        "category": ride.category(),
+        "info": ride.info()
+    })
+
+
+@app.route("/ride/<id>/wait/<float:crowd_factor>", methods=["GET"])
+def ride_wait(id: str, crowd_factor: float):
+    ride = park.get(id)
+    if ride is None:
+        return jsonify({"error": "Ride not found"}), 404
+
+    wait = ride.wait_time(crowd_factor)
+    return jsonify({
+        "id": ride.id,
+        "crowd_factor": float(crowd_factor),
+        "wait_minutes": wait
+    })
+
