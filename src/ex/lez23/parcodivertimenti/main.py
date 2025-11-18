@@ -68,7 +68,10 @@ class Park:
         return None
     
     def list_all(self) -> list[str]:
-        return [ride.info() for ride in self.rides]
+        rides_info_list = []
+        for ride in self.rides:
+            rides_info_list.append(ride.info())
+        return rides_info_list
     
 
 
