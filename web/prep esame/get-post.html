@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 400px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 100px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+        const url="https://jsonplaceholder.typicode.com/posts/1";
+        const urlUser="https://jsonplaceholder.typicode.com/users/";
+        const urlComments="https://jsonplaceholder.typicode.com/posts/"; 
+
+        // This const is used to select the div element
+        const div = document.querySelector('div');
+
+        // fetch(url).
+        // then(response => response.json()).
+        // then(post => {
+        //     div.innerHTML = `<h2>${post.title}</h2><p>${post.body}</p>`;
+        // });
+
+        // async function fetchPost() {
+        //     const response = await fetch(url);
+        //     const post = await response.json();
+        //     div.innerHTML = `<h2>${post.title}</h2><p>${post.body}</p>`;
+
+        //     async function fetchPostUser() {
+        //         const responseUser = await fetch(urlUser + post.userId);
+        //         const user = await responseUser.json();
+        //         div.innerHTML += `<p>${user.name}</p>`;
+        //     }
+        //     fetchPostUser();
+
+        //     async function fetchPostComments() {
+        //         const responseComments = await fetch(urlComments + post.id + '/comments');
+        //         const comments = await responseComments.json();
+        //         div.innerHTML += `<h3>Comments:</h3>`;
+        //         comments.forEach(comment => {
+        //             div.innerHTML += `<p><strong>${comment.name}:</strong> ${comment.body}</p>`;
+        //         });
+        //     }
+        //     fetchPostComments();
+        // }
+        // fetchPost();
+        
+        async function fetchPost() {
+            try {
+                const response = await fetch(url);
+                const post = await response.json();
+
+                // Fetch user and comments in parallel
+                const [userResponse, commentsResponse] = await Promise.all([
+                    fetch(urlUser + post.userId),
+                    fetch(urlComments + post.id + '/comments')
+                ]);
+
+                const user = await userResponse.json();
+                const comments = await commentsResponse.json();
+
+                // Build HTML efficiently
+                let html = `
+                    <h2>${post.title}</h2>
+                    <p>${post.body}</p>
+                    <p><strong>Author:</strong> ${user.name}</p>
+                    <h3>Comments:</h3>
+                `;
+
+                comments.forEach(comment => {
+                    html += `<p><strong>${comment.name}:</strong> ${comment.body}</p>`;
+                });
+
+                div.innerHTML = html;
+
+            } catch (error) {
+                console.error("Error fetching post:", error);
+                div.innerHTML = "<p>Error loading post.</p>";
+            }
+        }
+
+        fetchPost();
+
+
+        // async function fetchPostUser() {
+
+        // fetch(url)
+        // .then(response => response.json())
+        // .then(data => {
+        //     const postDataDiv = document.getElementById('post-data');
+        //     postDataDiv.innerHTML = `<p>${data.title}${data.body}</p>`;
+        // })
+
+        // async function fetchPostData() {
+        //     const response = await fetch(url);
+        //     const data = await response.json();
+        //     const postDataDiv = document.getElementById('post-data');
+        //     postDataDiv.innerHTML = `<h2>${data.title}</h2><p>${data.body}</p>`;
+        // }
+        // fetchPostData();
+        
+    </script>
+</body>
+</html>
