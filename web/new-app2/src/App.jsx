@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import CardPosts from './cardPosts.jsx'
 
 function App() {
   const [showMessage, setShowMessage] = useState(false)
@@ -16,8 +17,7 @@ function App() {
   return (
     <> 
       <div className="app-container">
-        <button onClick={onButtonClick}>Click me</button>
-        {showMessage && <p>Hello! You clicked the button.</p>}
+        <CardPosts />
       </div>
     </>
   )
