@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Testeser = () => {
+const ChangeColor = () => {
     const [color, setColor] = useState('black')
 
     const textStyle = { color }
@@ -35,4 +35,4 @@ const Testeser = () => {
     )
 }
 
-export default Testeser
+export default ChangeColor
