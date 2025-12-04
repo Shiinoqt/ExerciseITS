@@ -3,7 +3,6 @@ import {
   Button,
   FlatList,
   Modal,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -28,36 +27,33 @@ export default function App() {
     if (taskInput.trim() === "") return; 
     setTasks((currentTasks) => [
       ...currentTasks,
-      {
-        id: Math.random().toString(),
-        text: taskInput
-      }
+      {text: taskInput, id: Math.random().toString()}
     ]);
     setTaskInput("");
   }
   
-return (
-  <View style={styles.appContainer}>
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Type your task"
-        style={styles.textInput}
-        onChangeText={taskInputHandler}
-        value={taskInput}
-      />
-      <Button 
-        title="Add task"
-        onPress={addTaskHandler}
-      />
+  return (
+    <View style={styles.appContainer}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Type your task"
+          style={styles.textInput}
+          onChangeText={taskInputHandler}
+          value={taskInput} // Add this to clear input visually
+        />
+        <Button 
+          title="Add task"
+          onPress={addTaskHandler}
+        />
+      </View>
+      <View style={styles.tasksContainer}>
+        <FlatList 
+          data={tasks}
+          renderItem={({item}) => <Item text={item.text} />}
+          keyExtractor={item => item.id}
+        />
+      </View>
     </View>
-    <View style={styles.tasksContainer}>
-      <ScrollView>
-        {tasks.map((item) => (
-          <Item key={item.id} text={item.text} />
-        ))}
-      </ScrollView>
-    </View>
-  </View>
   );
 }
 
@@ -86,9 +82,9 @@ const styles = StyleSheet.create({
     height: 50,
   },
   tasksContainer: {
-    borderRadius: 40,
-    borderWidth: 1,
-    borderColor: '#cccccc',
+    // borderRadius: 40,
+    // borderWidth: 1,
+    // borderColor: '#cccccc',
     flex: 2,
     padding: 16,
   },
