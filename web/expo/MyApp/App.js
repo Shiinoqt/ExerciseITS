@@ -25,7 +25,7 @@ export default function App() {
       currentTasks.filter((task) => task.id !== id)
     );
   }
-  
+
   function taskInputHandler(enteredTask) {
     setTaskInput(enteredTask);
   }
@@ -55,6 +55,7 @@ export default function App() {
       </View>
       <View style={styles.tasksContainer}>
         <FlatList 
+          alwaysBounceVertical = {true}
           data={tasks}
           renderItem={({item}) => (
             <Item 
