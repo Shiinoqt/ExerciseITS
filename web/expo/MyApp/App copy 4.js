@@ -2,29 +2,25 @@ import { useState } from "react";
 import {
   Button,
   FlatList,
+  Modal,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
 
-
 export default function App() {
   const [taskInput, setTaskInput] = useState("");
   const [tasks, setTasks] = useState([]);
-
-  const Item = ({text, onDelete}) => (
-    <Pressable onPress={onDelete} style={styles.taskItem}>
-      <Text style={styles.taskText}>{text}</Text>
-    </Pressable>
-  );
+  const [remove, removeTask] = useState(false);
   
-  function deleteTaskHandler(id) {
-    setTasks((currentTasks) => 
-      currentTasks.filter((task) => task.id !== id)
-    );
-  }
+  const Item = ({text}) => (
+    <View style={styles.taskItem}>
+      <Text style={styles.taskText}>{text}</Text>
+    </View>
+  );
   
   function taskInputHandler(enteredTask) {
     setTaskInput(enteredTask);
@@ -34,38 +30,38 @@ export default function App() {
     if (taskInput.trim() === "") return; 
     setTasks((currentTasks) => [
       ...currentTasks,
-      {text: taskInput, id: Math.random().toString()}
+      {
+        id: Math.random().toString(),
+        text: taskInput
+      }
     ]);
     setTaskInput("");
   }
   
-  return (
-    <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Type your task"
-          style={styles.textInput}
-          onChangeText={taskInputHandler}
-          value={taskInput} // Add this to clear input visually
-        />
-        <Button 
-          title="Add task"
-          onPress={addTaskHandler}
-        />
-      </View>
-      <View style={styles.tasksContainer}>
-        <FlatList 
-          data={tasks}
-          renderItem={({item}) => (
-            <Item 
-              text={item.text} 
-              onDelete={() => deleteTaskHandler(item.id)}
-            />
-          )}
-          keyExtractor={item => item.id}
-        />
-      </View>
+return (
+  <View style={styles.appContainer}>
+    <View style={styles.inputContainer}>
+      <TextInput
+        placeholder="Type your task"
+        style={styles.textInput}
+        onChangeText={taskInputHandler}
+        value={taskInput}
+      />
+      <Button 
+        title="Add task"
+        onPress={addTaskHandler}
+      />
     </View>
+    <View style={styles.tasksContainer}>
+      <ScrollView>
+        {tasks.map((item) => (
+          <>
+            <Item key={item.id} text={item.text}/>
+          </>
+        ))}
+      </ScrollView>
+    </View>
+  </View>
   );
 }
 
