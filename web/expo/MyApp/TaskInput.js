@@ -1,6 +1,6 @@
 import { Button, StyleSheet, TextInput, View } from "react-native";
 
-export default function TaskInput({ taskInput, onChangeText, onAddTask }) {
+export default function TaskInput({ taskInput, onChangeText, onAddTask, onCancel }) {
   return (
     <View style={styles.inputContainer}>
       <TextInput
@@ -9,28 +9,46 @@ export default function TaskInput({ taskInput, onChangeText, onAddTask }) {
         onChangeText={onChangeText}
         value={taskInput}
       />
-      <Button 
-        title="Add task"
-        onPress={onAddTask}
-      />
+      <View style={styles.buttonContainer}>
+        <View style={styles.button}>
+          <Button 
+            title="Add task"
+            onPress={onAddTask}
+          />
+        </View>
+        {onCancel && (
+          <View style={styles.button}>
+            <Button 
+              title="Cancel"
+              onPress={onCancel}
+              color="#ff4444"
+            />
+          </View>
+        )}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    gap: 16,
+  },
   textInput: {
     textAlign: 'center',
     borderColor: "#cccccc",
     borderWidth: 1,
     borderRadius: 40,
-    width: '70%',
-    height: '100%',
+    width: '100%',
+    height: 50,
     paddingHorizontal: 8,
   },
-  inputContainer: {
+  buttonContainer: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: "row",
-    height: 50,
+    gap: 12,
+  },
+  button: {
+    flex: 1,
   },
 });

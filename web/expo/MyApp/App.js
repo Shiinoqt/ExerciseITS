@@ -2,15 +2,26 @@ import { useState } from "react";
 import {
   StyleSheet,
   View,
+  Modal,
+  Button,
 } from "react-native";
 import TaskInput from "./TaskInput";
 import TaskContainer from "./TaskContainer";
 
-
 export default function App() {
   const [taskInput, setTaskInput] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  function startAddTask() {
+    setModalVisible(true);
+  }
   
+  function endAddTask() {
+    setModalVisible(false);
+    setTaskInput("");
+  }
+
   function deleteTaskHandler(id) {
     setTasks((currentTasks) => 
       currentTasks.filter((task) => task.id !== id)
@@ -28,15 +39,30 @@ export default function App() {
       {text: taskInput, id: Math.random().toString()}
     ]);
     setTaskInput("");
+    endAddTask();
   }
   
   return (
     <View style={styles.appContainer}>
-      <TaskInput 
-        taskInput={taskInput}
-        onChangeText={taskInputHandler}
-        onAddTask={addTaskHandler}
-      />
+      <Button title="Add New Task" onPress={startAddTask} />
+      
+      <Modal 
+        visible={modalVisible} 
+        animationType="fade"
+        transparent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TaskInput 
+              taskInput={taskInput}
+              onChangeText={taskInputHandler}
+              onAddTask={addTaskHandler}
+              onCancel={endAddTask}
+            />
+          </View>
+        </View>
+      </Modal>
+
       <TaskContainer 
         tasks={tasks}
         onDeleteTask={deleteTaskHandler}
@@ -53,5 +79,26 @@ const styles = StyleSheet.create({
     paddingTop: '20%',
     paddingHorizontal: 16,
     paddingBottom: '5%',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    //backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'transparent',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
