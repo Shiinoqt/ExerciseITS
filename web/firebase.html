@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="input-form">
+        <input type="text" id="input" />
+        <input type="submit" value="Add" />
+    </form>
+    <div id="tasks">
+    </div>
+    <script>
+        const URL_BASE = "https://todoapp-f0f30-default-rtdb.europe-west1.firebasedatabase.app/tasks/"
+        const form = document.getElementById("input-form")
+
+        async function sendData() {
+            const inputValue = document.getElementById("input").value.trim();
+            if (!inputValue) return; // Prevent empty submissions
+
+            try {
+                const response = await fetch(URL_BASE + ".json", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ 
+                        task: inputValue, 
+                        done: false 
+                    })
+                });
+                if (response.ok) {
+                    console.log("Task added:", await response.json());
+                    document.getElementById("input").value = ""; // Clear input after success
+                    getData(); // Refresh tasks
+                } else {
+                    console.error("Error:", response.status);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function getData() {
+            try {
+                const response = await fetch(URL_BASE + ".json");
+                const tasks = await response.json();
+                const tasksDiv = document.getElementById("tasks");
+                tasksDiv.innerHTML = ""; // Clear existing
+                if (tasks) {
+                    Object.keys(tasks).forEach(key => {
+                        const taskData = tasks[key];
+                        const taskDiv = document.createElement("div");
+                        taskDiv.innerHTML = `
+                            <input type="checkbox" ${taskData.done ? "checked" : ""} onchange="toggleDone('${key}', this.checked)">
+                            <span>${taskData.task}</span>
+                        `;
+                        tasksDiv.appendChild(taskDiv);
+                    });
+                }
+            } catch (e) {
+                console.error("Error loading tasks:", e);
+            }
+        }
+
+        async function toggleDone(key, isDone) {
+            try {
+                await fetch(URL_BASE + key + ".json", {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ done: isDone })
+                });
+                getData(); // Refresh after update
+            } catch (e) {
+                console.error("Error updating task:", e);
+            }
+        }
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            sendData();
+        });
+
+        getData();
+    </script>
+</body>
+</html>

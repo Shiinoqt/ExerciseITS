@@ -7,12 +7,11 @@ import {
 } from "react-native";
 import TaskInput from "./TaskInput";
 import TaskContainer from "./TaskContainer";
-import useTasks from "./TaskService";
 
 export default function App() {
   const [taskInput, setTaskInput] = useState("");
+  const [tasks, setTasks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const { tasks, addTask, toggleDone, deleteTask } = useTasks();
 
   function startAddTask() {
     setModalVisible(true);
@@ -24,7 +23,9 @@ export default function App() {
   }
 
   function deleteTaskHandler(id) {
-    deleteTask(id);
+    setTasks((currentTasks) => 
+      currentTasks.filter((task) => task.id !== id)
+    );
   }
 
   function taskInputHandler(enteredTask) {
@@ -33,7 +34,10 @@ export default function App() {
   
   function addTaskHandler() {
     if (taskInput.trim() === "") return; 
-    addTask(taskInput);
+    setTasks((currentTasks) => [
+      ...currentTasks,
+      {text: taskInput, id: Math.random().toString()}
+    ]);
     setTaskInput("");
     endAddTask();
   }
@@ -62,7 +66,6 @@ export default function App() {
       <TaskContainer 
         tasks={tasks}
         onDeleteTask={deleteTaskHandler}
-        onToggleDone={toggleDone}
       />
     </View>
   );

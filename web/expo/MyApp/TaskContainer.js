@@ -1,12 +1,19 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
-const TaskItem = ({ text, onDelete }) => (
-  <Pressable onPress={onDelete} style={styles.taskItem}>
-    <Text style={styles.taskText}>{text}</Text>
-  </Pressable>
+const TaskItem = ({ task, done, onDelete, onToggle }) => (
+  <View style={styles.taskItem}>
+    <Pressable onPress={onToggle} style={styles.checkbox}>
+      <View style={[styles.checkboxInner, done && styles.checkboxChecked]}>
+        {done && <Text style={styles.checkmark}>✓</Text>}
+      </View>
+    </Pressable>
+    <Pressable onPress={onDelete} style={styles.taskTextContainer}>
+      <Text style={[styles.taskText, done && styles.doneText]}>{task}</Text>
+    </Pressable>
+  </View>
 );
 
-export default function TaskContainer({ tasks, onDeleteTask }) {
+export default function TaskContainer({ tasks, onDeleteTask, onToggleDone }) {
   return (
     <View style={styles.tasksContainer}>
       <FlatList 
@@ -14,11 +21,13 @@ export default function TaskContainer({ tasks, onDeleteTask }) {
         data={tasks}
         renderItem={({ item }) => (
           <TaskItem 
-            text={item.text} 
+            task={item.task} 
+            done={item.done}
             onDelete={() => onDeleteTask(item.id)}
+            onToggle={() => onToggleDone(item.id, !item.done)}
           />
         )}
-        keyExtractor={item => item.id}h
+        keyExtractor={item => item.id}
       />
     </View>
   );
@@ -33,17 +42,46 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   taskItem: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#0088ff1c',
     height: 60,
     padding: 8,
     borderRadius: 40,
     marginBottom: 8,
   },
+  checkbox: {
+    marginRight: 12,
+    marginLeft: 12,
+  },
+  checkboxInner: {
+    width: 24,
+    height: 24,
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#0088ff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  checkboxChecked: {
+    backgroundColor: '#0088ff',
+  },
+  checkmark: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  taskTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   taskText: {
     fontWeight: 'bold',
-    textAlign: 'center',
     fontSize: 16,
+  },
+  doneText: {
+    textDecorationLine: 'line-through',
+    color: '#888',
   },
 });
