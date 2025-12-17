@@ -24,5 +24,19 @@ public class MainImpiegato {
         azienda.assume(i2);
         System.out.println(azienda);
 
+        Manager m1 = new Manager("marco", 3000, new Date(), "anna");
+        Manager m2 = new Manager("popi", new Date(), "anna");
+
+        System.out.println(m1);
+        System.out.println(m2);
+        m1.addSalario(100);
+        m2.addSalario(200);
+
+        System.out.println(m1);
+        System.out.println(m2);
+
+        azienda.assume(m1);
+        azienda.assume(m2);
+        System.out.println(azienda);
     }
 }

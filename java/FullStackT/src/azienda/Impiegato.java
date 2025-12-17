@@ -47,10 +47,8 @@ public class Impiegato {
 
     @Override
     public String toString() {
-        return "Impiegato{" +
-                "nome='" + nome + '\'' +
-                ", salario=" + salario +
-                ", dataAssunzione=" + dataAssunzione +
-                '}';
+        return "Nome Dipendente = " + nome +
+                ", salario = " + salario +
+                ", dataAssunzione = " + dataAssunzione;
     }
 }
