@@ -6,12 +6,10 @@ import UserAlbums from './userAlbum'
 import UserCrud from './userCrud'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <UserAlbums></UserAlbums>
-      <UserCrud></UserCrud>
+      {/*<UserCrud></UserCrud>*/}
     </>
   )
 }

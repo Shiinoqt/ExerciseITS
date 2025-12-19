@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './App.css'
 
 const urlUsers = "https://jsonplaceholder.typicode.com/users";
 const urlAlbums = "https://jsonplaceholder.typicode.com/albums";
@@ -38,7 +39,7 @@ const UserAlbums = () => {
       setPhotos([]);
       return;
     }
-    
+
     try {
       setLoading(true);
       setError("");
@@ -62,7 +63,7 @@ const UserAlbums = () => {
       setPhotos([]);
       return;
     }
-    
+
     try {
       setLoading(true);
       setError("");
@@ -86,7 +87,7 @@ const UserAlbums = () => {
   useEffect(() => {
     getAlbums();
   }, [userSelected]);
-  
+
   useEffect(() => {
     getPhotos();
   }, [albumSelected]);
@@ -98,13 +99,13 @@ const UserAlbums = () => {
   const handleAlbumChange = (e) => {
     setAlbumSelected(e.target.value);
   };
-           
+
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+    <div>
+      <h1>
         Gestione Albums e Photos
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div>
         <div>
           <select
             className="form-select"
@@ -138,30 +139,17 @@ const UserAlbums = () => {
 
       {photos.length > 0 && (
         <div>
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          <h2>
             Photos ({photos.length})
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div>
             {photos.map((photo) => (
-              <div 
-                key={photo.id} 
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-              >
-                <div className="aspect-square">
+              <div key={photo.id}>
+                <div>
                   <img
                     src={photo.thumbnailUrl}
                     alt={photo.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
                   />
-                </div>
-                <div className="p-3">
-                  <h3 className="text-sm font-medium text-gray-800 mb-1">
-                    {photo.title}
-                  </h3>
-                  <p className="text-xs text-gray-500">
-                    ID: {photo.id}
-                  </p>
                 </div>
               </div>
             ))}
