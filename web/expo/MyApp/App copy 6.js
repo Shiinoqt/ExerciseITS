@@ -12,7 +12,6 @@ import useTasks from "./TaskService";
 export default function App() {
   const [taskInput, setTaskInput] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const [filter, setFilter] = useState("all"); // "all", "todo", "done"
   const { tasks, addTask, toggleDone, deleteTask } = useTasks();
 
   function startAddTask() {
@@ -38,42 +37,10 @@ export default function App() {
     setTaskInput("");
     endAddTask();
   }
-
-  // Filter tasks based on the selected filter
-  const filteredTasks = tasks.filter(task => {
-    if (filter === "todo") return !task.done;
-    if (filter === "done") return task.done;
-    return true; // "all"
-  });
   
   return (
     <View style={styles.appContainer}>
       <Button title="Add New Task" onPress={startAddTask} />
-      
-      {/* Filter buttons */}
-      <View style={styles.filterContainer}>
-        <View style={styles.filterButton}>
-          <Button 
-            title="All" 
-            onPress={() => setFilter("all")}
-            color={filter === "all" ? "#0088ff" : "#888888"}
-          />
-        </View>
-        <View style={styles.filterButton}>
-          <Button 
-            title="Todo" 
-            onPress={() => setFilter("todo")}
-            color={filter === "todo" ? "#0088ff" : "#888888"}
-          />
-        </View>
-        <View style={styles.filterButton}>
-          <Button 
-            title="Done" 
-            onPress={() => setFilter("done")}
-            color={filter === "done" ? "#0088ff" : "#888888"}
-          />
-        </View>
-      </View>
       
       <Modal 
         visible={modalVisible} 
@@ -93,7 +60,7 @@ export default function App() {
       </Modal>
 
       <TaskContainer 
-        tasks={filteredTasks}
+        tasks={tasks}
         onDeleteTask={deleteTaskHandler}
         onToggleDone={toggleDone}
       />
@@ -109,14 +76,6 @@ const styles = StyleSheet.create({
     paddingTop: '20%',
     paddingHorizontal: 16,
     paddingBottom: '5%',
-  },
-  filterContainer: {
-    flexDirection: 'row',
-    gap: 12,
-    justifyContent: 'space-between',
-  },
-  filterButton: {
-    flex: 1,
   },
   modalOverlay: {
     flex: 1,
