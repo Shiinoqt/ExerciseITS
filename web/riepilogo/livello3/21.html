@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trasformazione Array con Map</title>
+</head>
+<body>
+    <h1>Trasformazione Array con Map</h1>
+    <p>Converti elementi oggetto in stringhe Nome Cognome</p>
+    <pre id="result"></pre>
+
+    <script>
+        // Array di oggetti
+        const persone = [
+            { nome: "Mario", cognome: "Rossi" },
+            { nome: "Anna", cognome: "Bianchi" },
+            { nome: "Luca", cognome: "Verdi" },
+            { nome: "Giulia", cognome: "Ferrari" }
+        ];
+
+        // Trasformazione con map e template string
+        const nomiCognomi = persone.map(persona => `${persona.nome} ${persona.cognome}`);
+
+        // Visualizzazione risultato
+        document.getElementById("result").textContent = JSON.stringify(nomiCognomi, null, 2);
+        
+        console.log(nomiCognomi);
+    </script>
+</body>
+</html>

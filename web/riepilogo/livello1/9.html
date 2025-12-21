@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input id="input" type="text">
+        <input id="input-button" type="button" value="Add">
+        <ol id="result"></ol>
+    </div>
+    <script>
+        const inputbutton = document.getElementById("input-button")
+
+        function addElement () {
+            const input = document.getElementById("input")
+            const value = input.value.trim();
+            if (value) {
+                const newLi = document.createElement("li");
+                newLi.textContent = value;
+                document.getElementById("result").appendChild(newLi);
+                input.value = '';
+            }
+        }
+
+        inputbutton.addEventListener('click', addElement);
+    </script>
+</body>
+</html>

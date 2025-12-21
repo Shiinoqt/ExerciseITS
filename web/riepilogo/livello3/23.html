@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const movimenti = [
+            { tipo: "entrata", importo: 1000 },
+            { tipo: "uscita", importo: 250 },
+            { tipo: "entrata", importo: 500 },
+            { tipo: "uscita", importo: 100 },
+            { tipo: "uscita", importo: 300 }
+        ];
+
+        const saldo = movimenti.reduce((totale, movimento) => {
+            if (movimento.tipo === "entrata") {
+                return totale + movimento.importo;
+            } else {
+                return totale - movimento.importo;
+            }
+        }, 0);
+
+        console.log("Saldo finale:", saldo);
+        // Output: Saldo finale: 850
+    </script>
+</body>
+
+</html>

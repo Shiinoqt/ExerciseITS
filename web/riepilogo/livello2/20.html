@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro Lista in Tempo Reale</title>
+</head>
+<body>
+    <h1>Filtro Lista in Tempo Reale</h1>
+    <input 
+        type="text" 
+        id="filterInput" 
+        placeholder="Digita un nome per filtrare..."
+    >
+    <ul id="namesList"></ul>
+
+    <script>
+        const nomi = [
+            'Andrea',
+            'Alessandro',
+            'Anna',
+            'Marco',
+            'Marianna',
+            'Luca',
+            'Luigi',
+            'Lucia',
+            'Paolo',
+            'Paola',
+            'Sofia',
+            'Simone'
+        ];
+
+        const filterInput = document.getElementById('filterInput');
+        const namesList = document.getElementById('namesList');
+
+        function renderList(filteredNomi) {
+            namesList.innerHTML = filteredNomi
+                .map(nome => `<li>${nome}</li>`)
+                .join('');
+        }
+
+        filterInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = nomi.filter(nome =>
+                nome.toLowerCase().includes(searchTerm)
+            );
+            renderList(filtered);
+        });
+
+        // Renderizza la lista completa al caricamento
+        renderList(nomi);
+    </script>
+</body>
+</html>

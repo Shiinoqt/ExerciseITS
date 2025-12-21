@@ -100,6 +100,14 @@ const UserAlbums = () => {
     setAlbumSelected(e.target.value);
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div>
       <h1>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const prodotti = [
+            { nome: "Laptop", categoria: "elettronica", prezzo: 1200 },
+            { nome: "Mouse", categoria: "elettronica", prezzo: 25 },
+            { nome: "Tastiera", categoria: "elettronica", prezzo: 75 },
+            { nome: "Sedia", categoria: "arredamento", prezzo: 150 },
+            { nome: "Scrivania", categoria: "arredamento", prezzo: 300 }
+        ];
+
+        // Filtro: categoria "elettronica" E prezzo <= 100
+        const prodottiFiltrati = prodotti.filter(p =>
+            p.categoria === "elettronica" && p.prezzo <= 100
+        );
+
+        console.log("Prodotti filtrati:", prodottiFiltrati);
+        // Output: [{ nome: "Mouse", ... }, { nome: "Tastiera", ... }]
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const studenti = [
+            { nome: "Mario", voti: [7, 8, 6, 9] },
+            { nome: "Lucia", voti: [9, 9, 8, 10] },
+            { nome: "Giovanni", voti: [6, 7, 7, 6] }
+        ];
+
+        // 1. Map: calcolare media per ogni studente
+        const medie = studenti.map(studente => {
+            const somma = studente.voti.reduce((acc, voto) => acc + voto, 0);
+            return somma / studente.voti.length;
+        });
+
+        console.log("Medie individuali:", medie);
+        // Output: [7.5, 9, 6.5]
+
+        // 2. Reduce: calcolare media generale
+        const mediaGenerale = medie.reduce((acc, media) => acc + media, 0) / medie.length;
+
+        console.log("Media generale:", mediaGenerale);
+        // Output: Media generale: 7.666666666666667
+    </script>
+</body>
+
+</html>

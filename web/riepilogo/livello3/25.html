@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Simulare recupero dati dopo un ritardo
+        function simulaDatiConPromise() {
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve("Dati caricati con successo dopo 3 secondi!");
+                }, 3000);
+            });
+
+            console.log("Inizio caricamento...");
+
+            promise.then((messaggio) => {
+                console.log(messaggio);
+            });
+        }
+
+        // Esegui
+        simulaDatiConPromise();
+    </script>
+</body>
+
+</html>
