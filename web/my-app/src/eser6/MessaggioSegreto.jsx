@@ -1,7 +1,8 @@
 import React from 'react';
+import { useState } from 'react';
 
 function MessaggioSegreto() {
-    const [show, setShow] = React.useState(false);
+    const [show, setShow] = useState(false);
 
     function toggleShow() {
         setShow(!show);

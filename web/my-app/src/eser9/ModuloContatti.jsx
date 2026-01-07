@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 
-function ModuloContatti() {
+const ModuloContatti = () => {
   const [datiForm, setDatiForm] = useState({
     nome: "",
     email: "",
     messaggio: ""
   });
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setDatiForm(prev => ({ ...prev, [name]: value }));
-  }
+    setDatiForm({ ...datiForm, [name]: value });
+  };
 
-  function handleSubmit(e) {
+  // Questa è la funzione corretta per gestire il submit
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(datiForm);
-  }
+    console.log("Dati inviati:", datiForm);
+  };  
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}> {/* Usa onSubmit qui */}
       <input
         type="text"
         name="nome"

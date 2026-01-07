@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function CampoRicerca() {
-    const [testo, setTesto] = React.useState('');
+    const [testo, setTesto] = useState('');
 
     function onChange(event) {
         setTesto(event.target.value);
