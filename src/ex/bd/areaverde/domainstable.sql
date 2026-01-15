@@ -1,5 +1,5 @@
 create domain CF as varchar(16)
-    check(value ~ '^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z0-9]{4}$');
+    check(value ~ '^[A-Z0-9]{16}$');
 
 create domain Stringa as varchar;
 
