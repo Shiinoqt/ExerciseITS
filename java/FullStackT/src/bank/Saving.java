@@ -83,7 +83,7 @@ public class Saving extends Standard {
     // Stampa i dati del conto saving
     @Override
     public void printAccountData() {
-        System.out.println("=== Dati Conto Saving ===");
+        System.out.println("Dati Conto Saving");
         System.out.println("Intestatario: " + getName());
         System.out.println("Numero conto: " + getNumber());
         System.out.println("Saldo: €" + String.format("%.2f", getBalance()));

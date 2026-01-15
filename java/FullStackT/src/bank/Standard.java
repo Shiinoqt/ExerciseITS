@@ -51,7 +51,7 @@ public class Standard {
 
     // Stampa i dati del conto
     public void printAccountData() {
-        System.out.println("=== Dati Conto ===");
+        System.out.println("Dati Conto");
         System.out.println("Intestatario: " + name);
         System.out.println("Numero conto: " + number);
         System.out.println("Saldo: €" + String.format("%.2f", balance));
@@ -60,7 +60,7 @@ public class Standard {
 
     // Stampa solo la lista dei movimenti
     public void printTransactions() {
-        System.out.println("=== Lista Movimenti ===");
+        System.out.println("Lista Movimenti");
         if (transactions.isEmpty()) {
             System.out.println("Nessun movimento registrato.");
         } else {
