@@ -3,7 +3,8 @@ select a.codice, a.nome, count(distinct comp)
 from aeroporto a, arrpart ap
 where ap.partenza = a.codice 
 	or ap.arrivo = a.codice
-group by a.codice;
+group by a.codice, a.nome
+order by a.codice;
 
 --2
 select count(*) numero_voli
