@@ -27,7 +27,7 @@ create table regione (
     -- Accorpo la nazione alla regione
     nazione varchar not null,
     foreign key (nazione) 
-        references nazione(nome)
+        references nazione(nome),
     primary key (nome, nazione)
 );
 
@@ -48,6 +48,7 @@ create table giocatore (
     cognome varchar not null,
     indirizzo indirizzo not null,
     rank IntGZ not null,
+
     -- Accorpo la citta al giocatore
     citta integer not null,
     foreign key (citta) 
@@ -71,6 +72,11 @@ create table partita (
     indirizzo indirizzo not null,
     komi Reale_0_10 not null,
 
+    -- Accorpo citta
+    citta integer not null,
+    foreign key (citta)
+        references citta(id),
+
     -- Accorpo segue
     regole varchar not null,
     foreign key (regole) 
@@ -79,22 +85,33 @@ create table partita (
     -- Accorpo part torneo
     torneo integer not null,
     foreign key (torneo) 
-        references torneo(id)
+        references torneo(id),
 
     -- Accorpo bianco 
     bianco varchar not null,
     foreign key (bianco) 
         references giocatore(nickname),
 
-    -- v. incl. (id) occorre in -- nero (partita)
+    nero varchar not null,
+    foreign key (nero)
+        references giocatore(nickname),
+
+    check (bianco <> nero)
 );
 
-create table nero (
-    partita integer not null,
-    giocatore varchar not null,
-    foreign key (giocatore) 
-        references giocatore(nickname),
-    foreign key (partita) 
-        references partita(id),
-    primary key (partita)         
+create table partitaconrinuncia (
+    partita integer primary key,
+    rinunciatario Colore not null,
+
+    foreign key (partita)
+        references partita(id)
+);
+
+create table partitaconpunteggio (
+    partita integer primary key,
+    punteggio_bianco IntGEZ not null,
+    punteggio_nero IntGEZ not null,
+
+    foreign key (partita)
+        references partita(id)
 );
