@@ -1,5 +1,7 @@
 package carrelloecom;
 
+import java.util.Objects;
+
 public class Product {
     private int id;
     private String description;
@@ -44,4 +46,12 @@ public class Product {
     public double totalPrice() {
         return quantity * price;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return getId() == product.getId() && getQuantity() == product.getQuantity() && Double.compare(getPrice(), product.getPrice()) == 0 && Objects.equals(getDescription(), product.getDescription());
+    }
+
 }
