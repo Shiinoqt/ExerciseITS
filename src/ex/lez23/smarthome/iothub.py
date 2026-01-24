@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from typing import Any
-
 from flask import Flask, jsonify, request, url_for
 
 status_codes = { 'online', 'offline', 'error' , 'error' }
@@ -132,7 +131,7 @@ def index() -> Any:
     links = {
         "devices": url_for("list_devices", _external=True),
         "devices/<serial_number>": url_for("get_device", serial_number="<serial_number>", _external=True),
-        "devices/<serial_number>/diagnostic/<factor>": url_for("device_diagnostic", serial_number="<serial_number>", factor="<factor>", _external=True),
+        "devices/<serial_number>/diagnostic": url_for("device_diagnostic", serial_number="<serial_number>", _external=True),
     }   
     return jsonify({
         "message": "Welcome to the Smart Home IoT Hub API",
@@ -153,7 +152,7 @@ def get_device(serial_number: str) -> Any:
     return jsonify(device.info()), 200
 
 @app.route("/devices/<serial_number>/diagnostic/<factor>", methods=["GET"])
-def device_diagnostic(serial_number: str) -> Any:
+def device_diagnostic(serial_number: str, factor: float) -> Any:
     device = iot_hub.get(serial_number)
     if device is None:
         return jsonify({"error": "Device not found"}), 404
