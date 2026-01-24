@@ -132,7 +132,7 @@ def index() -> Any:
     links = {
         "devices": url_for("list_devices", _external=True),
         "devices/<serial_number>": url_for("get_device", serial_number="<serial_number>", _external=True),
-        "devices/<serial_number>/diagnostic": url_for("device_diagnostic", serial_number="<serial_number>", _external=True),
+        "devices/<serial_number>/diagnostic/<factor>": url_for("device_diagnostic", serial_number="<serial_number>", factor="<factor>", _external=True),
     }   
     return jsonify({
         "message": "Welcome to the Smart Home IoT Hub API",
