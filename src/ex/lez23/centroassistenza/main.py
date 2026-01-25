@@ -107,20 +107,22 @@ def home():
         }
     })
 
-@app.route('/devices', methods=['GET'])
+@app.get('/devices')
 def list_devices():
     return jsonify(service_center.list_all())
 
-@app.route('/devices/<id>', methods=['GET'])
+@app.get('/devices/<id>')
 def get_device(id):
     device = service_center.get_device(id)
+    
     if not device:
         abort(404, description="Device not found")
     return jsonify(device.info())
 
-@app.route('/devices/<id>/estimate/<float:factor>', methods=['GET'])
+@app.get('/devices/<id>/estimate/<float:factor>')
 def device_estimate(id, factor):
     device = service_center.get_device(id)
+
     if not device:
         abort(404, description="Device not found")
     estimated_time = device.estimated_total_time(factor)
@@ -129,9 +131,109 @@ def device_estimate(id, factor):
         "estimated_total_time": estimated_time
     })
 
-@app.route('/devices', methods=['POST'])
+@app.post('/devices')
 def add_device():
-    pass
+    data = request.get_json()
+
+    # 1. Added "type" to required fields
+    required = ["id", "model", "customer_name", "purchase_year", "status", "type"]
+    if not all(k in data for k in required):
+        return jsonify({"Error": "Missing Fields"}), 400
+    
+    # 2. Corrected method name to get_device
+    if service_center.get_device(data["id"]):
+        return jsonify({"Error": "Device already present"}), 400
+
+    if data["type"] == "smartphone":
+        new_device = Smartphone(
+            id=data["id"],
+            model=data["model"],
+            customer_name=data["customer_name"],
+            purchase_year=data["purchase_year"],
+            status=data["status"],
+            has_protective_case=data.get("has_protective_case", False),
+            storage_gb=data.get("storage_gb", 0)
+        )
+    elif data["type"] == "laptop":
+        new_device = Laptop(
+            id=data["id"],
+            model=data["model"],
+            customer_name=data["customer_name"],
+            purchase_year=data["purchase_year"],
+            status=data["status"],
+            has_dedicated_gpu=data.get("has_dedicated_gpu", False),
+            screen_size_inch=data.get("screen_size_inch", 0.0)
+        )
+    else:
+        return jsonify({"Error": "Invalid device type"}), 400
+    
+    service_center.add_device(new_device)
+    return jsonify(new_device.info()), 201
+
+@app.put('/devices/<id>')
+def update_device(id):
+    data = request.get_json()
+
+    required = ["id","model","customer_name","purchase_year","status"]
+    if not all(k in data for k in required):
+        return jsonify({"Error" : "Missing Fields"}), 400
+    
+    if not service_center.get(id):
+        return jsonify({"Error": "Device not found"}), 404
+
+    if data["type"] == "smartphone":
+        updated_device = Smartphone(
+            id=data["id"],
+            model=data["model"],
+            customer_name=data["customer_name"],
+            purchase_year=data["purchase_year"],
+            status=data["status"],
+            has_protective_case=data.get("has_protective_case"),
+            storage_gb=data.get("storage_gb")
+            )
+    elif data["type"] == "laptop":
+        updated_device = Laptop(
+            id=data["id"],
+            model=data["model"],
+            customer_name=data["customer_name"],
+            purchase_year=data["purchase_year"],
+            status=data["status"],
+            has_dedicated_gpu=data.get("has_dedicated_gpu"),
+            screen_size_inch=data.get("screen_size_inch")
+        )
+    else:
+        return jsonify({"Error": "Invalid device type"}), 400
+
+    try:
+        service_center.update(id, updated_device)
+    except ValueError as e:
+        return jsonify({"Error": str(e)}), 400
+
+    return jsonify(updated_device.info()), 200
+
+@app.patch('/devices/<id>/status')
+def patch_device_status(id):
+    data = request.get_json()
+    if "status" not in data:
+        return jsonify({"Error": "Missing status field"}), 400
+
+    try:
+        service_center.patch_status(id, data["status"])
+    except ValueError as e:
+        return jsonify({"Error": str(e)}), 404
+
+    device = service_center.get_device(id)
+    return jsonify(device.info()), 200
+
+@app.delete('/devices/<id>')
+def delete_device(id):
+    device = service_center.get_device(id)
+    if not device:
+        return jsonify({"Error": "Device not found"}), 404
+    
+    del service_center.devices[id]
+    return jsonify({"message": "Device deleted successfully"}), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True)

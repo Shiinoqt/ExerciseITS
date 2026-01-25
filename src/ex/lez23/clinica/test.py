@@ -101,3 +101,6 @@ if __name__ == "__main__":
     # 9) GET /bookings/<booking_id> (deve dare 404)
     r = requests.get(f"{BASE_URL}/bookings/{new_booking_id}", headers=headers)
     print_response("GET /bookings/<booking_id> (dopo delete)", r)
+
+    r = requests.get(f"{BASE_URL}/", headers=headers)
+    print("GET /", r.status_code, r.json())

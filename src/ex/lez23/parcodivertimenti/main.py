@@ -110,6 +110,9 @@ def list_rides():
 def get_ride(id: str):
     ride = park.get(id)
     
+    if not ride:
+        return jsonify({"error": "Ride not found"}), 404
+    
     return jsonify({
         "id": ride.id,
         "name": ride.name,
@@ -122,6 +125,10 @@ def get_ride(id: str):
 @app.route("/ride/<id>/wait/<float:crowd_factor>", methods=["GET"])
 def ride_wait(id: str, crowd_factor: float):
     ride = park.get(id)
+
+    if not ride:
+        return jsonify({"error": "Ride not found"}), 404
+
     wait = ride.wait_time(crowd_factor)
 
     return jsonify({
