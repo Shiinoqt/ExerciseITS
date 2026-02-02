@@ -53,7 +53,7 @@ if __name__ == "__main__":
     r = requests.post(
         f"{BASE_URL}/bookings",
         headers=headers,
-        data=json.dumps(new_exam),
+        json=new_exam
     )
     print_response("POST /bookings (nuova prenotazione exam)", r)
 

@@ -1,8 +1,10 @@
 package azienda;
 
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Objects;
 
-public class Impiegato {
+public class Impiegato implements Comparable<Impiegato> {
 
     private final String nome;
     private double salario;
@@ -50,5 +52,22 @@ public class Impiegato {
         return "Nome Dipendente = " + nome +
                 ", salario = " + salario +
                 ", dataAssunzione = " + dataAssunzione;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Impiegato impiegato = (Impiegato) o;
+        return Double.compare(getSalario(), impiegato.getSalario()) == 0 && Objects.equals(getNome(), impiegato.getNome()) && Objects.equals(getDataAssunzione(), impiegato.getDataAssunzione());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNome(), getSalario(), getDataAssunzione());
+    }
+
+    @Override
+    public int compareTo(Impiegato p) {
+        return this.getNome().compareTo(p.getNome());
     }
 }
