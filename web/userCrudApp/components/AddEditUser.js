@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, TextInput, View, StyleSheet, Alert } from 'react-native'
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, updateDoc, doc} from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
-const AddEditUser = ({navigation}) => {
+const AddEditUser = ({ navigation, route }) => {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+
+    const userEdit = route.params ? route.params.user.id : null;
 
     const handleSave = async () => {
         // Logic to save user details
@@ -15,56 +17,77 @@ const AddEditUser = ({navigation}) => {
             Alert.alert('Please fill all fields');
             return;
         }
-
-        await addDoc(collection(db, 'users'), {
-            name,
-            surname,
-            email,
-            phone,
-            createdAt: new Date()
-        })
-        .then(() => {
-            Alert.alert('User added successfully');
+        try {
+            if (userEdit) {
+                const userRef = doc(db, 'users', userEdit);
+                await updateDoc(userRef, {
+                    name,
+                    surname,
+                    email,
+                    phone,
+                });
+                Alert.alert('User updated successfully');
+            } else {
+                await addDoc(collection(db, 'users'), {
+                    name,
+                    surname,
+                    email,
+                    phone,
+                    createdAt: new Date()
+                });
+                Alert.alert('User added successfully');
+            }
             navigation.goBack();
-        })
-        .catch((error) => {
+        } catch (error) {
             Alert.alert('Error adding user: ', error.message);
-        });
+        };
     }
 
-  return (
-    <View style={styles.container}>
-        <TextInput 
-            placeholder="Name" 
-            keyboardType="default" 
-            style={styles.input} 
-            value={name} 
-            onChangeText={setName}/>
-        <TextInput 
-            placeholder="Surname" 
-            keyboardType="default"
-            style={styles.input} 
-            value={surname} 
-            onChangeText={setSurname}/>
-        <TextInput 
-            placeholder="Email" 
-            keyboardType="email-address" 
-            style={styles.input} 
-            value={email} 
-            onChangeText={setEmail}/>
-        <TextInput 
-            placeholder="Phone" 
-            keyboardType="phone-pad" 
-            style={styles.input} 
-            value={phone} 
-            onChangeText={setPhone}/>
-        <Button 
-            style={styles.button} 
-            title="Save User"
-            onPress={handleSave}
+    useEffect(() => {
+        if (userEdit) {
+            setName(userEdit.name)
+            setSurname(userEdit.surname)
+            setEmail(userEdit.email)
+            setPhone(userEdit.phone)
+            navigation.setOptions({ title: 'Edit User' });
+        } else {
+            navigation.setOptions({ title: 'Add User' });
+        }
+    }, [userEdit, navigation]);
+
+    return (
+        <View style={styles.container}>
+            <TextInput
+                placeholder="Name"
+                keyboardType="default"
+                style={styles.input}
+                value={name}
+                onChangeText={setName} />
+            <TextInput
+                placeholder="Surname"
+                keyboardType="default"
+                style={styles.input}
+                value={surname}
+                onChangeText={setSurname} />
+            <TextInput
+                placeholder="Email"
+                keyboardType="email-address"
+                style={styles.input}
+                value={email}
+                onChangeText={setEmail} />
+            <TextInput
+                placeholder="Phone"
+                keyboardType="phone-pad"
+                style={styles.input}
+                value={phone}
+                onChangeText={setPhone} />
+            <Button
+                style={styles.button}
+                title="Save User"
+                onPress={handleSave}
             />
-    </View>
-  )
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
