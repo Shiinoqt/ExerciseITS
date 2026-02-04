@@ -1,63 +1,95 @@
-import React, { useState } from 'react'
-import { addDoc, collection, updateDoc, doc} from 'firebase/firestore';
-import { TextInput, View, StyleSheet, Button, TouchableOpacity, Text, Alert } from 'react-native'
-import { db } from '../firebaseConfig';
+import React, { useState } from 'react';
+import { TextInput, View, StyleSheet, TouchableOpacity, Text, Alert, ActivityIndicator } from 'react-native';
+
+// FIX: Ensure the URL points to the collection AND ends in .json
+const DB_URL = "https://learning-app-48aef-default-rtdb.europe-west1.firebasedatabase.app/books.json";
 
 const AddBook = ({ navigation }) => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [genre, setGenre] = useState('');
+    const [isSaving, setIsSaving] = useState(false); // Added loading state
 
     const handleSave = async () => {
         if (!title || !author || !genre) {
             Alert.alert('Please fill all fields');
             return;
         }
-        try {
-            await addDoc(collection(db, 'books'), {
-                title,
-                author,
-                genre,
-                addedAt: new Date()
-            });
-            Alert.alert('Book added successfully');
-            navigation.goBack();
-        } catch (error) {
-            Alert.alert('Error adding book: ', error.message);
+
+        setIsSaving(true);
+
+        const newBook = {
+            title,
+            author,
+            genre,
+            addedAt: new Date().toISOString()
         };
-        console.log('Saving:', { title, author, genre });
-    }
+
+        try {
+            const response = await fetch(DB_URL, {
+                method: 'POST', // POST creates a new unique ID automatically
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newBook),
+            });
+
+            if (response.ok) {
+                const data = await response.json(); 
+                console.log('Success! New ID:', data.name);
+                
+                Alert.alert('Success', 'Book added successfully');
+                navigation.goBack();
+            } else {
+                const errorData = await response.text();
+                throw new Error(errorData || 'Failed to save');
+            }
+        } catch (error) {
+            Alert.alert('Error', error.message);
+        } finally {
+            setIsSaving(false);
+        }
+    };
 
     return (
         <View style={styles.container}>
             <TextInput
                 placeholder='Title'
-                keyboardType="default"
                 style={styles.input}
                 value={title}
-                onChangeText={setTitle} />
+                onChangeText={setTitle}
+                editable={!isSaving}
+            />
             <TextInput
                 placeholder='Author'
-                keyboardType="default"
                 style={styles.input}
                 value={author}
-                onChangeText={setAuthor} />
+                onChangeText={setAuthor}
+                editable={!isSaving}
+            />
             <TextInput
                 placeholder='Genre'
-                keyboardType="default"
                 style={styles.input}
                 value={genre}
-                onChangeText={setGenre} />
+                onChangeText={setGenre}
+                editable={!isSaving}
+            />
+            
             <TouchableOpacity
-                style={styles.saveButton}
-                onPress={handleSave}>
-                <Text style={styles.saveButtonText}>Save</Text>
+                style={[styles.saveButton, isSaving && { backgroundColor: '#ccc' }]}
+                onPress={handleSave}
+                disabled={isSaving}>
+                {isSaving ? (
+                    <ActivityIndicator color="white" />
+                ) : (
+                    <Text style={styles.saveButtonText}>Save Book</Text>
+                )}
             </TouchableOpacity>
         </View>
-    )
-}
+    );
+};
 
-export default AddBook
+export default AddBook;
 
 const styles = StyleSheet.create({
     container: {

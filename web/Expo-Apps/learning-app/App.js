@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home';
 import AddBook from './components/AddBook';
+import EditBook from './components/EditBook';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function App() {
           },
         }} />
         <Stack.Screen name="AddBook" component={AddBook} options={{ title: "Aggiungi libro" }} />
+        <Stack.Screen name="EditBook" component={EditBook} options={{ title: "Modifica libro"}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
