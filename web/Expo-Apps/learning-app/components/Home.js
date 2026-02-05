@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: "#f8f9fa" },
     card: {
         backgroundColor: "white",
+        top: 12,
         padding: 20,
         marginVertical: 10,
         marginHorizontal: 20,
