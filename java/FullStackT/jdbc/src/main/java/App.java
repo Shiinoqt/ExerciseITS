@@ -104,7 +104,7 @@ public class App {
 
         LibroDao librodao = new LibroDao();
 //        librodao.insertItem("Informatica", "Bobby", 9.99);
-        System.out.println(librodao.getItems());
+        System.out.println(LibroDao.getItems());
 
         app.getItems();
     }
