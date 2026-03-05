@@ -35,7 +35,4 @@ public class DAOUtenteMappa {
 		Utente utente = mappa.remove(idUtente);
 		return utente;
 	}
-	
-	
-
 } 
