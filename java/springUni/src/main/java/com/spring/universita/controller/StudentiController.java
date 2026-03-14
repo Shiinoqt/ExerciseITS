@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.universita.dto.StudenteDTO;
-import com.spring.universita.entity.Studente;
 import com.spring.universita.service.StudentiService;
-import com.spring.utenti.entity.Utente;
 
 @RestController
 @RequestMapping(path="/studenti")
@@ -32,13 +30,13 @@ public class StudentiController {
 		return service.selectAll();
 	}
 	
-	@GetMapping(path="/elimina/{matricola}", produces = "applicaiton/json")
+	@GetMapping(path="/elimina/{matricola}", produces = "application/json")
 	public String elimina(@PathVariable String matricola) {
 		return service.delete(matricola);
 	}
 	
 	@GetMapping(path="/modificaIndirizzo/{matricola}", consumes = "application/json", produces = "application/json")
-	public StudenteDTO aggiornaIndirizzo(@PathVariable String matricola, @RequestBody Studente newIndirizzo) {
+	public StudenteDTO aggiornaIndirizzo(@PathVariable String matricola, @RequestBody String newIndirizzo) {
 		return service.modificaIndirizzo(matricola, newIndirizzo);
 	}
 	

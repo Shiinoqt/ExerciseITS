@@ -43,14 +43,15 @@ public class StudentiService {
 		return null;
 	}
 	
-	public StudenteDTO modificaIndirizzo(String matricola, Studente newIndirizzo) {
-		Studente studente = dao.selectByMatricola(matricola);
-		
-		if (studente != null) {
-			studente.setIndirizzo(studente.getIndirizzo());
-			
-			return StudenteMapper.StudenteAStudenteDTO(studente);
-		}
-		return null;
+	public StudenteDTO modificaIndirizzo(String matricola, String newIndirizzo) {
+	    Studente studente = dao.selectByMatricola(matricola);
+	    
+	    if (studente != null) {
+	    	studente.setIndirizzo(newIndirizzo);
+	    	dao.insert(studente);
+	    	
+	    	return StudenteMapper.StudenteAStudenteDTO(studente);
+	    }
+	    return null;
 	}
 }
