@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.5</version>
+		<version>4.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>springMusic</artifactId>
+	<artifactId>springAOP</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springMusic</name>
-	<description>Demo project for Spring Boot</description>
+	<name>springAOP</name>
+	<description>progetto spring per DI</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -40,8 +40,17 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+      <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+	  </dependency>
+	  
+	  <dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+	  </dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
